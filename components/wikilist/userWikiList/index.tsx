@@ -56,15 +56,13 @@ const UserWikiList = () => {
         <NotFound searchTerm={searchTerm} />
       ) : (
         <>
-          <div className={styles['search-result-info']}>
-            {searchTerm && (
-              <>
-                "{searchTerm}"님을 총{' '}
-                <span className={styles['total-count']}>{totalCount}</span>명
-                찾았습니다.
-              </>
-            )}
-          </div>
+          {searchTerm && (
+            <div className={styles['search-result-info']}>
+              "{searchTerm}"님을 총{' '}
+              <span className={styles['total-count']}>{totalCount}</span>명
+              찾았습니다.
+            </div>
+          )}
           <div className={styles['user-list']}>
             {users.map((user) => (
               <UserWikiCard key={user.id} user={user} />

@@ -3,12 +3,11 @@
 .user-list-container {
   @include Flex(column, center, center);
   @include Size(100%, '');
-  margin-top: 60px;
-  row-gap: 16px;
+  margin-top: 80px;
 
   .user-list {
     @include Flex(column, flex-start, flex-start);
-    margin-top: 57px;
+    margin-top: 41px;
     row-gap: 24px;
     width: 100%;
   }
@@ -21,6 +20,7 @@
     $font-weight-lg-regular,
     $color-grayscale-400
   );
+  margin: 16px 0;
   text-align: left;
   width: 100%;
 }
@@ -32,6 +32,14 @@
 @media screen and (max-width: $tablet-max-width) {
   .user-list-container {
     margin-top: 40px;
+
+    .user-list {
+      margin-top: 80px;
+    }
+  }
+
+  .search-result-info {
+    margin: 20px 0;
   }
 }
 
@@ -41,7 +49,12 @@
 
     .user-list {
       @include Flex(column, flex-start, flex-start);
+      margin-top: 25px;
       row-gap: 8px;
     }
+  }
+
+  .search-result-info {
+    margin: 15px 0;
   }
 }
