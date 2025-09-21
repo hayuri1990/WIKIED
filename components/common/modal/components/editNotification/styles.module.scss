@@ -16,11 +16,13 @@
     padding: 20px;
     row-gap: 16px;
     position: absolute;
-    top: 90px;
-    right: 5%;
+    top: 85px;
+    right: 165px;
 
     &.small {
       @include Size(275px, auto);
+      top: 65px;
+      right: 167px;
     }
 
     .header {
@@ -90,6 +92,26 @@
 
       &::-webkit-scrollbar-track {
         background-color: transparent;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $tablet-max-width) {
+  .overlay {
+    .container {
+      &.small {
+        right: 105px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $mobile-max-width) {
+  .overlay {
+    .container {
+      &.small {
+        right: 40px;
       }
     }
   }

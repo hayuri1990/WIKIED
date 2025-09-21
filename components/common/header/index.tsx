@@ -33,7 +33,9 @@ const Header = () => {
   const mobileMenuBtnRef = useRef<HTMLButtonElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   useOutsideClick([mobileMenuRef, mobileMenuBtnRef], () => {
-    setIsMobileMenu(false);
+    if (!isModalOpen) {
+      setIsMobileMenu(false);
+    }
   });
 
   const deskMenuBtnRef = useRef<HTMLButtonElement>(null);
