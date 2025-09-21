@@ -4,5 +4,10 @@
   @include Flex(column, center, center);
   margin: 0 auto;
   max-width: 860px;
-  padding: 20px;
+}
+
+@media screen and (max-width: $tablet-max-width) {
+  .wikilist-ui {
+    padding: 20px;
+  }
 }
