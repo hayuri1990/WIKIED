@@ -4,6 +4,7 @@ import { getArticleById } from '@/services/api/article';
 import { Article } from '@/types/article';
 import { useAuth } from '@/contexts/AuthProvider';
 import dynamic from 'next/dynamic';
+import { LoadingSpinner } from '@/components/common/loadingSpinner';
 
 const DynamicEditor = dynamic(() => import('@/components/common/editor'), {
   ssr: false,
@@ -42,7 +43,7 @@ const ArticleEditPage = () => {
   }, [articleId, user]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
 
   if (!article) {
