@@ -6,6 +6,7 @@ import SearchForm from '@/components/common/searchForm';
 import NotFound from '@/components/wikilist/notFound';
 import { getProfiles } from '@/services/api/profile';
 import { ProfileSummary } from '@/types/wiki';
+import { LoadingSpinner } from '@/components/common/loadingSpinner';
 
 const UserWikiList = () => {
   const [users, setUsers] = useState<ProfileSummary[]>([]);
@@ -51,7 +52,7 @@ const UserWikiList = () => {
     <div className={styles['user-list-container']}>
       <SearchForm onSearch={handleSearch} text="사용자 검색" />
       {loading ? (
-        <div>Loading...</div>
+        <LoadingSpinner />
       ) : users.length === 0 ? (
         <NotFound searchTerm={searchTerm} />
       ) : (

@@ -14,6 +14,7 @@ import Quiz from '@/components/common/modal/components/quiz';
 import styles from '@/pages/wiki/[code]/styles.module.scss';
 import Modal from '@/components/common/modal';
 import Alert from '@/components/common/modal/components/alert';
+import { LoadingSpinner } from '@/components/common/loadingSpinner';
 
 interface WikiProps {
   className: string;
@@ -112,7 +113,7 @@ const Wiki = (props: WikiProps) => {
   }, [isEditable]);
 
   if (!profile) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
 
   const handleEditorChange = (content: string, htmlContent: string) => {

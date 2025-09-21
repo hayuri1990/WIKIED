@@ -9,9 +9,12 @@ import likeIcon from '@/assets/icons/ic_heart.svg';
 import OrderDropdown from '@/components/boards/articleOrderDropdown';
 import { useRouter } from 'next/router';
 
-const ArticleList = () => {
+interface ArticleListProps {
+  setLoading: (loading: boolean) => void;
+}
+
+const ArticleList = ({ setLoading }: ArticleListProps) => {
   const [boards, setBoards] = useState<Article[]>([]);
-  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
@@ -86,66 +89,54 @@ const ArticleList = () => {
           onChange={handleOrderChange}
         />
       </div>
-      {loading ? (
-        <div>Loading...</div>
-      ) : (
-        <>
-          <table className={styles['board-table']}>
-            <thead>
-              <tr>
-                <th>번호</th>
-                <th>제목</th>
-                <th>작성자</th>
-                <th>좋아요</th>
-                <th>날짜</th>
-              </tr>
-            </thead>
-            <tbody>
-              {boards.map((board) => (
-                <tr key={board.id} onClick={() => handleClick(board.id)}>
-                  <td>{board.id}</td>
-                  <td>{board.title}</td>
-                  <td>{board.writer.name}</td>
-                  <td>{board.likeCount}</td>
-                  <td>{new Date(board.createdAt).toLocaleDateString()}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-
-          <div className={styles['mobile-list']}>
-            {boards.map((board) => (
-              <div
-                key={board.id}
-                className={styles['mobile-list-item']}
-                onClick={() => handleClick(board.id)}
-              >
-                <div className={styles['title']}>{board.title}</div>
-                <div className={styles['info']}>
-                  <span className={styles['author']}>{board.writer.name}</span>
-                  <span className={styles['date']}>
-                    {new Date(board.createdAt).toLocaleDateString()}
-                  </span>
-                  <span className={styles['like-count']}>
-                    <Image
-                      src={likeIcon}
-                      alt="likeIcon"
-                      width={18}
-                      height={18}
-                    />
-                    {board.likeCount}
-                  </span>
-                </div>
-              </div>
-            ))}
+      <table className={styles['board-table']}>
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>좋아요</th>
+            <th>날짜</th>
+          </tr>
+        </thead>
+        <tbody>
+          {boards.map((board) => (
+            <tr key={board.id} onClick={() => handleClick(board.id)}>
+              <td>{board.id}</td>
+              <td>{board.title}</td>
+              <td>{board.writer.name}</td>
+              <td>{board.likeCount}</td>
+              <td>{new Date(board.createdAt).toLocaleDateString()}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div className={styles['mobile-list']}>
+        {boards.map((board) => (
+          <div
+            key={board.id}
+            className={styles['mobile-list-item']}
+            onClick={() => handleClick(board.id)}
+          >
+            <div className={styles['title']}>{board.title}</div>
+            <div className={styles['info']}>
+              <span className={styles['author']}>{board.writer.name}</span>
+              <span className={styles['date']}>
+                {new Date(board.createdAt).toLocaleDateString()}
+              </span>
+              <span className={styles['like-count']}>
+                <Image src={likeIcon} alt="likeIcon" width={18} height={18} />
+                {board.likeCount}
+              </span>
+            </div>
           </div>
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-          />
-        </>
-      )}
+        ))}
+      </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 };

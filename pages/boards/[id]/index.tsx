@@ -24,6 +24,7 @@ import deleteIcon from '@/assets/icons/ic_delete.svg';
 import { useAuth } from '@/contexts/AuthProvider';
 import DOMPurify from 'dompurify';
 import axios from 'axios';
+import { LoadingSpinner } from '@/components/common/loadingSpinner';
 
 const ArticleDetailPage = () => {
   const router = useRouter();
@@ -165,7 +166,7 @@ const ArticleDetailPage = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
 
   if (!article) {
