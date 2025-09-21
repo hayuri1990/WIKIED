@@ -1,0 +1,11 @@
+@import '@/styles/index.scss';
+
+.loading-spinner-background {
+  @include Flex(row, center, center);
+  @include Size(100vw, 100vh);
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(241, 242, 242, 0.8);
+  z-index: 9999;
+}

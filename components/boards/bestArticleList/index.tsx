@@ -7,12 +7,16 @@ import Button from '@/components/common/button';
 import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthProvider';
 
-const BestArticleList = () => {
+interface BestArticleListProps {
+  setLoading: (loading: boolean) => void;
+}
+
+const BestArticleList = ({ setLoading }: BestArticleListProps) => {
   const [bestBoards, setBestBoards] = useState<Article[]>([]);
-  const [loading, setLoading] = useState(true);
   const { isLoggedIn } = useAuth();
 
   const fetchArticles = async () => {
+    setLoading(true);
     try {
       const data = await getArticles({
         page: 1,
@@ -31,10 +35,6 @@ const BestArticleList = () => {
   useEffect(() => {
     fetchArticles();
   }, []);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div className={styles['best-board-list']}>
