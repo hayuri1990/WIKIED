@@ -36,6 +36,7 @@
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
   overflow: hidden;
   cursor: pointer;
+  border: 1px solid rgba($color-grayscale-200, 0.6);
 
   .image {
     @include Size(100%, 131px);
@@ -50,6 +51,7 @@
 
   .content {
     padding: 19px 19px 14px 19px;
+    border-top: 1px solid rgba($color-grayscale-200, 0.5);
 
     .content-title {
       @include Font(
@@ -102,6 +104,7 @@
   .best-board-list {
     .best-board-header {
       margin: 40px 0;
+      gap: 10px;
 
       .add-board-button {
         @include Size(130px, 45px);
@@ -115,6 +118,9 @@
         $font-weight-2xl-semibold,
         $color-grayscale-500
       );
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 
@@ -127,6 +133,7 @@
       flex-wrap: nowrap;
       overflow-x: scroll;
       gap: 16px;
+      padding: 0 2px 3px 2px;
     }
   }
 
