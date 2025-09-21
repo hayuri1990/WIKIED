@@ -46,7 +46,7 @@ const UserWikiCard = ({ user }: UserCardProps) => {
       </Link>
       <div className={styles['user-link-container']}>
         <UserWikiLink
-          url={`https://www.wikied.kr/wiki/${user.code}`}
+          url={`${process.env.NEXT_PUBLIC_BASE_URL}/wiki/${user.code}`}
           user={user}
         />
       </div>

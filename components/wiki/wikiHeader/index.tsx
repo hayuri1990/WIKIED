@@ -36,7 +36,7 @@ const WikiHeader = ({
     useState<boolean>(true);
 
   const handleCopyClick = () => {
-    const linkToCopy = `https://www.wikied.kr/${profile.code}`;
+    const linkToCopy = `${process.env.NEXT_PUBLIC_BASE_URL}/wiki/${profile.code}`;
     navigator.clipboard
       .writeText(linkToCopy)
       .then(() => {
@@ -136,7 +136,7 @@ const WikiHeader = ({
                 className={styles['link-copy-btn']}
               >
                 <section className={styles['link-address']}>
-                  https://www.wikied.kr/{profile.code}
+                  {process.env.NEXT_PUBLIC_BASE_URL}/{profile.id}
                 </section>
               </button>
             </section>
