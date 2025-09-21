@@ -1,7 +1,8 @@
 @import '@/styles/index.scss';
 .user-name-container {
-  display: none; // 기본적으로 숨김
+  display: none;
 }
+
 // 프로필 이미지 관련 부분
 .user-profile {
   @include Flex(column, inherit, inherit);
@@ -10,12 +11,10 @@
   background-color: $color-grayscale-50;
   box-shadow: 0px 4px 20px 0px #00000014;
   overflow: hidden;
-  // padding: 60px;
 
   .image-container {
     @include Size(100%, 200px);
     @include Flex(column, center, center);
-    // margin: 60px 0;
 
     .file-input-wrapper {
       position: relative;
@@ -231,7 +230,6 @@
       grid-column: 1;
       margin: 0 auto;
       padding: 0;
-      // padding: 20px 0 32px 0;
 
       .file-input-wrapper {
         .file-input {
@@ -415,7 +413,6 @@
   .user-profile {
     .image-container {
       @include Size(62px, '');
-      // padding: 24px 0;
 
       .file-input-wrapper {
         .file-input {
@@ -521,10 +518,10 @@
         }
       }
     }
+  }
 
-    .expand-btn {
-      margin-right: 82px;
-    }
+  .expand-icon {
+    margin-right: 82px !important;
   }
 
   .profile-save-btn {

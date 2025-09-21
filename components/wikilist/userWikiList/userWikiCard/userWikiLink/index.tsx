@@ -64,7 +64,7 @@ const UserWikiLink = ({ url, user }: UserLinkProps) => {
       <div className={styles['link-container']} onClick={copyToClipboard}>
         <Image src={LinkIcon} alt="링크" width={20} height={20} />
         <span className={styles['link-text']}>
-          {'https://www.wikied.kr/' + user.id}
+          {`${process.env.NEXT_PUBLIC_BASE_URL}/${user.id}`}
         </span>
       </div>
     </div>
