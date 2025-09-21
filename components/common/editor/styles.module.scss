@@ -210,6 +210,7 @@
       $color-grayscale-50
     );
     @include Size(72px, 40px);
+    white-space: nowrap;
   }
 
   .title-input {
