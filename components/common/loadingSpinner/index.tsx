@@ -8,7 +8,7 @@ interface LoadingSpinnerProps {
 }
 
 export const LoadingSpinner = ({
-  size = 43,
+  size = 55,
   speed = 1.3,
   color = '#4cbfa4',
 }: LoadingSpinnerProps) => {
