@@ -21,8 +21,35 @@ authAxiosInstance.interceptors.request.use(
 authAxiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
-    if (error.response && error.response.status === 401) {
-      error.message = '로그인이 필요한 서비스입니다.';
+    // accessToken 만료 시 refreshToken을 이용하여 갱신
+    const originalRequest = error.config;
+
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
+      try {
+        const refreshToken = localStorage.getItem('refreshToken');
+        if (!refreshToken) throw new Error('refreshToken이 존재하지 않습니다.');
+
+        const res = await axios.post(`${API_BASE_URL}/auth/refresh-token`, {
+          refreshToken,
+        });
+
+        const newAccessToken = res.data.accessToken;
+
+        localStorage.setItem('accessToken', newAccessToken);
+
+        // 헤더 갱신 후 API 재요청
+        originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
+        return authAxiosInstance(originalRequest);
+      } catch (error) {
+        console.error('토큰 갱신 실패: ', error);
+
+        // refreshToken 만료 시 강제 로그아웃
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        window.location.href = '/login';
+      }
     }
     return Promise.reject(error);
   },

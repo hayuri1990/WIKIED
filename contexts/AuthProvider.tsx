@@ -42,12 +42,23 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
-    if (accessToken) {
-      setIsLoggedIn(true);
-      getUserMe(accessToken).then(setUser).catch(console.error);
-    } else {
-      // 수정 필요
+    if (!accessToken) {
+      setIsLoggedIn(false);
+      setUser(null);
+      return;
     }
+
+    getUserMe(accessToken)
+      .then((data) => {
+        setUser(data);
+        setIsLoggedIn(true);
+      })
+      .catch(() => {
+        // 토큰 만료 또는 유효하지 않을 경우
+        setIsLoggedIn(false);
+        setUser(null);
+        localStorage.removeItem('accessToken');
+      });
   }, [router]);
 
   const login = (authResponse: AuthResponseType) => {
