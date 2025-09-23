@@ -19,7 +19,9 @@
 }
 
 .input {
-  padding: 14px 20px;
+  @include Size('', 45px);
+  @include Font($font-size-md, $line-height-5xl, $font-weight-md-regular, '');
+  padding: 15px 20px;
   border-radius: 10px;
   background-color: $color-grayscale-100;
   border: 1px solid transparent;
