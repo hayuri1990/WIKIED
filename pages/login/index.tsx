@@ -117,53 +117,56 @@ const LoginPage = () => {
   };
 
   return (
-    <div className={styles['login-container']}>
-      <div className={styles['login-wrapper']}>
-        <p className={styles['title']}>로그인</p>
-        <form
-          className={styles['form']}
-          id="loginForm"
-          method="post"
-          onSubmit={handleSubmit}
-        >
-          <div className={styles['input-wrapper']}>
-            <Input
-              id="email"
-              label="이메일"
-              value={formState.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder="이메일을 입력해 주세요"
-              errorMessage={errors.email}
-            ></Input>
-            <Input
-              id="password"
-              label="비밀번호"
-              value={formState.password}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder="비밀번호를 입력해 주세요"
-              errorMessage={errors.password}
-              type="password"
-            ></Input>
+    <div className={styles['login-page-wrapper']}>
+      <div className={styles['login-container']}>
+        <div className={styles['login-main']}>
+          <p className={styles['title']}>로그인</p>
+          <div className={styles['login-form-container']}>
+            <form
+              className={styles['form']}
+              id="loginForm"
+              method="post"
+              onSubmit={handleSubmit}
+            >
+              <div className={styles['input-wrapper']}>
+                <Input
+                  id="email"
+                  label="이메일"
+                  value={formState.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  placeholder="이메일을 입력해 주세요"
+                  errorMessage={errors.email}
+                ></Input>
+                <Input
+                  id="password"
+                  label="비밀번호"
+                  value={formState.password}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  placeholder="비밀번호를 입력해 주세요"
+                  errorMessage={errors.password}
+                  type="password"
+                ></Input>
+              </div>
+              <Button color="primary" size="large" fullWidth>
+                로그인
+              </Button>
+            </form>
+            <Link className={styles['signup']} href="/signup">
+              회원가입
+            </Link>
           </div>
-          <Button color="primary" size="large" fullWidth>
-            로그인
-          </Button>
-        </form>
+        </div>
+
+        {toast.visible && (
+          <Toast
+            message={toast.message}
+            type={toast.type}
+            onClose={handleCloseToast}
+          />
+        )}
       </div>
-
-      <Link className={styles['signup']} href="/signup">
-        회원가입
-      </Link>
-
-      {toast.visible && (
-        <Toast
-          message={toast.message}
-          type={toast.type}
-          onClose={handleCloseToast}
-        />
-      )}
     </div>
   );
 };
