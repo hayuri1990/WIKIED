@@ -1,14 +1,17 @@
 @import '@/styles/index.scss';
 
 .signup-container {
-  @include Size(400px, 100%);
   @include Flex(column, '', '');
+  max-width: 400px;
   margin: 0 auto;
-  padding: 140px 0;
+  padding: 60px 0;
 
   .form {
+    @include Flex(column, center, normal);
+    gap: 30px;
+
     .input-wrapper {
-      @include Flex(column, center, '');
+      @include Flex(column, center, normal);
       row-gap: 24px;
     }
   }
@@ -21,7 +24,7 @@
       $color-grayscale-500
     );
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 64px;
   }
 
   .logon-wrapper {
@@ -34,7 +37,7 @@
       @include Font(
         $font-size-md,
         $line-height-md,
-        $font-weight-md-semibold,
+        $font-weight-md-regular,
         $color-grayscale-400
       );
     }
@@ -54,9 +57,24 @@
 }
 
 @media screen and (max-width: $tablet-max-width) {
-
+  .signup-container {
+    .title {
+      margin-bottom: 48px;
+    }
+  }
 }
 
 @media screen and (max-width: $mobile-max-width) {
+  .signup-container {
+    @include Size(100%, '');
+    padding: 60px 20px;
 
+    .title {
+      margin-bottom: 32px;
+    }
+
+    .form {
+      gap: 32px;
+    }
+  }
 }

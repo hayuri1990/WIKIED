@@ -180,10 +180,10 @@ const SignupPage = () => {
             errorMessage={errors.passwordConfirmation}
             type="password"
           ></Input>
-          <Button color="primary" size="large">
-            가입하기
-          </Button>
         </div>
+        <Button color="primary" size="large">
+          가입하기
+        </Button>
       </form>
       <div className={styles['logon-wrapper']}>
         <strong>이미 회원이신가요?</strong>
