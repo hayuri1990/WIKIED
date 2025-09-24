@@ -4,16 +4,7 @@ import styles from '@/components/common/editor/components/colorPalette/styles.mo
 import Image from 'next/image';
 import coloringIcon from '@/assets/icons/ic_coloring.svg';
 import { ColorPaletteProps } from '@/components/common/editor/components/colorPalette/types';
-
-const colorPalette = [
-  { name: 'RED', color: '#FF0000' },
-  { name: 'ORANGE', color: '#FFA500' },
-  { name: 'YELLOW', color: '#FFFF00' },
-  { name: 'GREEN', color: '#008000' },
-  { name: 'BLUE', color: '#0000FF' },
-  { name: 'PURPLE', color: '#800080' },
-  { name: 'BLACK', color: '#000000' },
-];
+import { colorPalette } from '@/components/common/editor/components/colorPalette/constants';
 
 const ColorPalette: React.FC<ColorPaletteProps> = ({
   editorState,
