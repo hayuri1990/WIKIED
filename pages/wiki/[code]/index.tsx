@@ -6,8 +6,7 @@ import {
   getProfileByCode,
   updateProfile,
 } from '@/services/api/profile';
-import { ProfileDetail, Section } from '@/types/wiki';
-import { WikiProps } from '@/pages/wiki/[code]/types';
+import { ProfileDetail, Section, WikiProps } from '@/types/wiki';
 import WikiHeader from '@/components/wiki/wikiHeader';
 import WikiArticle from '@/components/wiki/wikiArticle';
 import WikiAside from '@/components/wiki/wikiAside';

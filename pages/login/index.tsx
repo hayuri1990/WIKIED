@@ -8,18 +8,21 @@ import { LoginInputId, getErrorMessage } from '@/types/authUtils';
 import Button from '@/components/common/button';
 import Input from '@/components/common/input';
 import useDebounce from '@/hooks/useDebounce/useDebounce';
-import { AuthResponseType } from '@/types/auth';
-import { FormState, ErrorState } from '@/pages/login/types';
+import {
+  AuthResponseType,
+  LoginFormDataType,
+  loginErrorState,
+} from '@/types/auth';
 import Toast from '@/components/common/toast';
 
 const LoginPage = () => {
   const router = useRouter();
-  const [formState, setFormState] = useState<FormState>({
+  const [formState, setFormState] = useState<LoginFormDataType>({
     email: '',
     password: '',
   });
 
-  const [errors, setErrors] = useState<ErrorState>({});
+  const [errors, setErrors] = useState<loginErrorState>({});
 
   const [toast, setToast] = useState<{
     message: string;
