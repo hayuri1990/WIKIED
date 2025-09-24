@@ -2,13 +2,7 @@ import clsx from 'clsx';
 import styles from '@/components/common/linkPreview/styles.module.scss';
 import Image from 'next/image';
 import link from '@/assets/icons/ic_link.svg';
-
-interface LinkPreviewProps {
-  url: string;
-  iconSize?: 'small' | 'large';
-  height?: '26px' | '30px';
-  className?: string;
-}
+import { LinkPreviewProps } from '@/components/common/linkPreview/types';
 
 const LinkPreview = ({
   url,

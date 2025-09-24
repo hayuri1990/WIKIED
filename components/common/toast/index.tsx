@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from '@/components/common/toast/styles.module.scss';
 import clsx from 'clsx';
-
-interface ToastProps {
-  message: string;
-  type: 'success' | 'error';
-  onClose: () => void;
-  duration?: number;
-}
+import { ToastProps } from '@/components/common/toast/types';
 
 const Toast = ({ message, type, onClose, duration = 2000 }: ToastProps) => {
   const [progress, setProgress] = useState(90);

@@ -4,34 +4,11 @@ import styles from '@/components/common/modal/components/editNotification/styles
 import NotificationCard from '@/components/common/modal/components/editNotification/notificationCard';
 import { useState, useEffect, useCallback } from 'react';
 import clsx from 'clsx';
-
-/**
- * @ mockData 사용 (API 연동 후 수정 필요)
- */
-const mockNotifications = [
-  { id: 1, timeStamp: '1분 전' },
-  { id: 2, timeStamp: '5분 전' },
-  { id: 3, timeStamp: '10분 전' },
-  { id: 4, timeStamp: '12분 전' },
-  { id: 5, timeStamp: '14분 전' },
-  { id: 6, timeStamp: '16분 전' },
-  { id: 7, timeStamp: '1분 전' },
-  { id: 8, timeStamp: '5분 전' },
-  { id: 9, timeStamp: '10분 전' },
-  { id: 10, timeStamp: '12분 전' },
-  { id: 11, timeStamp: '14분 전' },
-  { id: 12, timeStamp: '16분 전' },
-];
-
-interface EditNotificationProps {
-  size?: 'small' | 'large';
-  onClose?: () => void;
-}
-
-interface Notification {
-  id: number;
-  timeStamp: string;
-}
+import {
+  EditNotificationProps,
+  Notification,
+} from '@/components/common/modal/components/editNotification/types';
+import { mockNotifications } from '@/components/common/modal/components/editNotification/constants';
 
 const EditNotification = ({
   size = 'large',

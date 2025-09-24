@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { EditorState, RichUtils } from 'draft-js';
+import { RichUtils } from 'draft-js';
 import {
   isTextLeftAligned,
   isTextCenterAligned,
@@ -8,7 +8,6 @@ import {
 } from 'contenido';
 import ColorPalette from '@/components/common/wikiEditor/components/colorPalette';
 import styles from '@/components/common/wikiEditor/components/toolBar/styles.module.scss';
-
 import boldIcon from '@/assets/icons/ic_bold.svg';
 import italicIcon from '@/assets/icons/ic_italic.svg';
 import underlineIcon from '@/assets/icons/ic_underline.svg';
@@ -20,16 +19,9 @@ import listNumberIcon from '@/assets/icons/ic_number.svg';
 import linkIcon from '@/assets/icons/link_gray.svg';
 import imageIcon from '@/assets/icons/ic_image.svg';
 import HeadingDropdown from '@/components/common/wikiEditor/components/headingDropdown';
-import { ProfileDetail } from '@/types/wiki';
+import { ToolBarProps } from '@/components/common/wikiEditor/components/toolBar/types';
 import { useEffect, useState } from 'react';
 import clsx from 'clsx';
-
-interface ToolBarProps {
-  editorState: EditorState;
-  onEditorChange: (editorState: EditorState) => void;
-  onImageUpload: () => void;
-  profile: ProfileDetail;
-}
 
 const ToolBar = ({
   editorState,

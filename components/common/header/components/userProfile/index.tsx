@@ -7,13 +7,7 @@ import { useEffect, useState } from 'react';
 import EditNotification from '@/components/common/modal/components/editNotification';
 import { getProfileByCode } from '@/services/api/profile';
 import { useAuth } from '@/contexts/AuthProvider';
-
-type UserProfileProps = {
-  mobileMenu: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  deskMenu: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  mobileMenuBtnRef?: React.RefObject<HTMLButtonElement>;
-  deskMenuBtnRef?: React.RefObject<HTMLButtonElement>;
-};
+import { UserProfileProps } from '@/components/common/header/components/userProfile/types';
 
 const UserProfile = ({
   mobileMenu,

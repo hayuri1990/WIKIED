@@ -1,11 +1,6 @@
 import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import styles from '@/components/boards/articleOrderDropdown/styles.module.scss';
-
-interface ArticleOrderDropdownProps {
-  options: { value: string; label: string }[];
-  selected: string;
-  onChange: (value: string) => void;
-}
+import { ArticleOrderDropdownProps } from '@/components/boards/articleOrderDropdown/types';
 
 const ArticleOrderDropdown = ({
   options,

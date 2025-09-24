@@ -1,13 +1,9 @@
 import Link from 'next/link';
 import styles from '@/components/wikilist/userWikiList/userWikiCard/styles.module.scss';
-import { ProfileSummary } from '@/types/wiki';
+import { UserCardProps } from '@/components/wikilist/userWikiList/userWikiCard/types';
 import DefaultProfileImg from '@/assets/icons/ic_profile.svg';
 import UserWikiLink from '@/components/wikilist/userWikiList/userWikiCard/userWikiLink';
 import Image from 'next/image';
-
-interface UserCardProps {
-  user: ProfileSummary;
-}
 
 const UserWikiCard = ({ user }: UserCardProps) => {
   return (

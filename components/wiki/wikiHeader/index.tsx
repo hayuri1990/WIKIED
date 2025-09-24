@@ -1,20 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
-import { ProfileDetail } from '@/types/wiki';
+import { WikiHeaderProps } from '@/components/wiki/wikiHeader/types';
 import Button from '@/components/common/button';
 import SnackBar from '@/components/common/snackbar';
 import styles from '@/components/wiki/wikiHeader/styles.module.scss';
 import link from '@/assets/icons/ic_link.svg';
 import loadingIcon from '@/assets/icons/ic_loading.svg';
-
-interface WikiHeaderProps {
-  className?: string;
-  profile: ProfileDetail;
-  isEditable: boolean;
-  onParticipateClick: () => void;
-  checkEditStatus: (code: string) => Promise<any>;
-  showParticipateBtn: boolean;
-  code: string;
-}
 
 const WikiHeader = ({
   className,

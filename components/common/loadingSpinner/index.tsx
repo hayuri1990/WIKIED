@@ -1,11 +1,6 @@
 import styles from '@/components/common/loadingSpinner/styles.module.scss';
 import { DotPulse } from '@uiball/loaders';
-
-interface LoadingSpinnerProps {
-  size?: number;
-  speed?: number;
-  color?: string;
-}
+import { LoadingSpinnerProps } from '@/components/common/loadingSpinner/types';
 
 export const LoadingSpinner = ({
   size = 55,

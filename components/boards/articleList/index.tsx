@@ -8,10 +8,8 @@ import Pagination from '@/components/common/pagination';
 import likeIcon from '@/assets/icons/ic_heart.svg';
 import OrderDropdown from '@/components/boards/articleOrderDropdown';
 import { useRouter } from 'next/router';
-
-interface ArticleListProps {
-  setLoading: (loading: boolean) => void;
-}
+import { ArticleListProps } from '@/components/boards/articleList/types';
+import { orderOptions } from '@/components/boards/articleList/constants';
 
 const ArticleList = ({ setLoading }: ArticleListProps) => {
   const [boards, setBoards] = useState<Article[]>([]);
@@ -21,11 +19,6 @@ const ArticleList = ({ setLoading }: ArticleListProps) => {
   const [orderOption, setOrderOption] = useState('recent');
 
   const router = useRouter();
-
-  const orderOptions = [
-    { value: 'recent', label: '최신순' },
-    { value: 'like', label: '인기순' },
-  ];
 
   const fetchArticles = useCallback(
     async (page: number, search: string, order: string) => {

@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import { EditorState, RichUtils } from 'draft-js';
+import { RichUtils } from 'draft-js';
+import { ToolBarProps } from '@/components/common/editor/components/toolBar/types';
 import {
   isTextLeftAligned,
   isTextCenterAligned,
@@ -18,12 +19,6 @@ import listBulletIcon from '@/assets/icons/ic_bullet.svg';
 import listNumberIcon from '@/assets/icons/ic_number.svg';
 import linkIcon from '@/assets/icons/link_gray.svg';
 import imageIcon from '@/assets/icons/ic_image.svg';
-
-interface ToolBarProps {
-  editorState: EditorState;
-  onEditorChange: (editorState: EditorState) => void;
-  onImageUpload: () => void;
-}
 
 const ToolBar = ({
   editorState,

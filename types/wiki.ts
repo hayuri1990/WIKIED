@@ -49,3 +49,9 @@ export interface Section {
   title: string;
   content: string;
 }
+
+export interface WikiProps {
+  className: string;
+  profile: ProfileDetail;
+  securityAnswer: string;
+}

@@ -6,10 +6,7 @@ import BestBoardCard from '@/components/boards/bestArticleList/bestArticleCard';
 import Button from '@/components/common/button';
 import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthProvider';
-
-interface BestArticleListProps {
-  setLoading: (loading: boolean) => void;
-}
+import { BestArticleListProps } from '@/components/boards/bestArticleList/types';
 
 const BestArticleList = ({ setLoading }: BestArticleListProps) => {
   const [bestBoards, setBestBoards] = useState<Article[]>([]);

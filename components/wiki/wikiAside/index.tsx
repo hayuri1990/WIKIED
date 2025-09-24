@@ -2,6 +2,8 @@ import { useState, useRef, useEffect } from 'react';
 import clsx from 'clsx';
 import { v4 as uuidv4 } from 'uuid';
 import { ProfileDetail } from '@/types/wiki';
+import { WikiAsideProps } from '@/components/wiki/wikiAside/types';
+import { getAttributes } from '@/components/wiki/wikiAside/utils';
 import UserAttribute from '@/components/wiki/wikiAside/userAttribute';
 import { imageFileToUrl, getUserInfo } from '@/services/api/profile';
 import Button from '@/components/common/button';
@@ -11,17 +13,6 @@ import expandIconReverse from '@/assets/icons/ic_expand_reverse.svg';
 import fileUploadIcon from '@/assets/icons/ic_camera.svg';
 import basicProfileImg from '@/assets/icons/ic_profile.svg';
 import Image from 'next/image';
-
-interface WikiAsideProps {
-  className: string;
-  profile: ProfileDetail;
-  setProfile: React.Dispatch<React.SetStateAction<ProfileDetail>>;
-  isEditable: boolean;
-  setIsEditable: (isEditable: boolean) => void;
-  onProfileChange: (updatedProfile: ProfileDetail) => void;
-  onSave: () => void;
-  onCancel: () => void;
-}
 
 const WikiAside = ({
   className,
@@ -104,16 +95,7 @@ const WikiAside = ({
     onProfileChange(updatedProfile);
   };
 
-  const attributes = [
-    { name: '거주 도시', value: editedProfile.city, key: 'city' },
-    { name: 'MBTI', value: editedProfile.mbti, key: 'mbti' },
-    { name: '직업', value: editedProfile.job, key: 'job' },
-    { name: 'SNS 계정', value: editedProfile.sns, key: 'sns' },
-    { name: '생일', value: editedProfile.birthday, key: 'birthday' },
-    { name: '별명', value: editedProfile.nickname, key: 'nickname' },
-    { name: '혈액형', value: editedProfile.bloodType, key: 'bloodType' },
-    { name: '국적', value: editedProfile.nationality, key: 'nationality' },
-  ];
+  const attributes = getAttributes(editedProfile);
 
   return (
     <>

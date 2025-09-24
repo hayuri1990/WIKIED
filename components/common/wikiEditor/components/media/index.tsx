@@ -1,9 +1,4 @@
-import { ContentState, ContentBlock } from 'draft-js';
-
-interface MediaComponentProps {
-  contentState: ContentState;
-  block: ContentBlock;
-}
+import { MediaComponentProps } from '@/components/common/wikiEditor/components/media/types';
 
 const Media = ({ contentState, block }: MediaComponentProps) => {
   const entity = contentState.getEntity(block.getEntityAt(0));

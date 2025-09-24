@@ -4,12 +4,7 @@ import leftArrow from '@/assets/icons/pg_left.svg';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import useClientWidth from '@/hooks/useClientWidth/useClientWidth';
-
-interface PaginationProps {
-  currentPage: number;
-  totalPages: number;
-  onPageChange: (page: number) => void;
-}
+import { PaginationProps } from '@/components/common/pagination/types';
 
 const Pagination = ({
   currentPage,
