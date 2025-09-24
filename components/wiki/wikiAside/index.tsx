@@ -46,7 +46,7 @@ const WikiAside = ({
       try {
         const response = await getUserInfo();
         const { data } = response;
-        const userId = String(data.profile.id);
+        const userId = String(data.profile?.id);
         const profileIdStr = String(profile.id);
         setIsCurrentUser(profileIdStr === userId);
       } catch (err) {
