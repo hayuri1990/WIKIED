@@ -1,11 +1,7 @@
 import styles from '@/components/common/header/components/mobileToggle/styles.module.scss';
 import { useRouter } from 'next/router';
 import { useAuth } from '@/contexts/AuthProvider';
-
-type MobileMenuProps = {
-  mobileMenu: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  toggleModal: () => void;
-};
+import { MobileMenuProps } from '@/components/common/header/components/mobileToggle/types';
 
 const MobileMenu = ({ mobileMenu, toggleModal }: MobileMenuProps) => {
   const router = useRouter();

@@ -3,6 +3,7 @@ import { EditorState, Modifier } from 'draft-js';
 import styles from '@/components/common/editor/components/colorPalette/styles.module.scss';
 import Image from 'next/image';
 import coloringIcon from '@/assets/icons/ic_coloring.svg';
+import { ColorPaletteProps } from '@/components/common/editor/components/colorPalette/types';
 
 const colorPalette = [
   { name: 'RED', color: '#FF0000' },
@@ -13,11 +14,6 @@ const colorPalette = [
   { name: 'PURPLE', color: '#800080' },
   { name: 'BLACK', color: '#000000' },
 ];
-
-interface ColorPaletteProps {
-  editorState: EditorState;
-  onEditorChange: (editorState: EditorState) => void;
-}
 
 const ColorPalette: React.FC<ColorPaletteProps> = ({
   editorState,

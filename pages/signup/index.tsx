@@ -4,24 +4,11 @@ import Link from 'next/link';
 import Button from '@/components/common/button';
 import Input from '@/components/common/input';
 import { SignupInputId, getErrorMessage } from '@/types/authUtils';
+import { FormState, ErrorState } from '@/pages/signup/types';
 import useDebounce from '@/hooks/useDebounce/useDebounce';
 import { publicAxiosInstance } from '@/services/api/axiosInstance';
 import { useRouter } from 'next/router';
 import Toast from '@/components/common/toast';
-
-interface FormState {
-  email: string;
-  name: string;
-  password: string;
-  passwordConfirmation: string;
-}
-
-interface ErrorState {
-  email?: string;
-  name?: string;
-  password?: string;
-  passwordConfirmation?: string;
-}
 
 const SignupPage = () => {
   const [formState, setFormState] = useState<FormState>({

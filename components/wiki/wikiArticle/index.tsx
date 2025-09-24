@@ -1,19 +1,9 @@
 import { useCallback } from 'react';
-import { ProfileDetail, Section } from '@/types/wiki';
+import { WikiArticleProps } from '@/components/wiki/wikiArticle/types';
 import Button from '@/components/common/button';
 import styles from '@/components/wiki/wikiArticle/styles.module.scss';
 import WikiEditor from '@/components/common/wikiEditor';
 import DOMPurify from 'dompurify';
-
-interface WikiArticleProps {
-  className: string;
-  profile: ProfileDetail;
-  sections: Section[];
-  onParticipateClick: () => void;
-  checkEditStatus: (code: string) => Promise<any>;
-  isEditable: boolean;
-  onEditorChange: (content: string, htmlContent: string) => void;
-}
 
 const WikiArticle = ({
   className,

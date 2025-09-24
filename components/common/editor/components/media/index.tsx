@@ -1,9 +1,4 @@
-import { ContentState, ContentBlock } from 'draft-js';
-
-interface MediaComponentProps {
-  contentState: ContentState;
-  block: ContentBlock;
-}
+import { MediaComponentProps } from '@/components/common/editor/components/media/types';
 
 const Media = ({ contentState, block }: MediaComponentProps) => {
   const entityKey = block.getEntityAt(0);

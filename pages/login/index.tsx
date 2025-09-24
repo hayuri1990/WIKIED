@@ -9,17 +9,8 @@ import Button from '@/components/common/button';
 import Input from '@/components/common/input';
 import useDebounce from '@/hooks/useDebounce/useDebounce';
 import { AuthResponseType } from '@/types/auth';
+import { FormState, ErrorState } from '@/pages/login/types';
 import Toast from '@/components/common/toast';
-
-interface FormState {
-  email: string;
-  password: string;
-}
-
-interface ErrorState {
-  email?: string;
-  password?: string;
-}
 
 const LoginPage = () => {
   const router = useRouter();

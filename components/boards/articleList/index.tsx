@@ -8,10 +8,7 @@ import Pagination from '@/components/common/pagination';
 import likeIcon from '@/assets/icons/ic_heart.svg';
 import OrderDropdown from '@/components/boards/articleOrderDropdown';
 import { useRouter } from 'next/router';
-
-interface ArticleListProps {
-  setLoading: (loading: boolean) => void;
-}
+import { ArticleListProps } from '@/components/boards/articleList/types';
 
 const ArticleList = ({ setLoading }: ArticleListProps) => {
   const [boards, setBoards] = useState<Article[]>([]);

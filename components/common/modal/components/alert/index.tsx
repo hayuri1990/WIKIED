@@ -1,14 +1,7 @@
 import styles from '@/components/common/modal/components/alert/styles.module.scss';
 import Button from '@/components/common/button';
 import clsx from 'clsx';
-
-interface AlertProps {
-  title: string;
-  description: string;
-  content: string;
-  size?: 'small' | 'large';
-  onClose?: () => void;
-}
+import { AlertProps } from '@/components/common/modal/components/alert/types';
 
 const Alert = ({
   title,
@@ -28,7 +21,13 @@ const Alert = ({
           {description}
         </p>
       </div>
-      <Button color={buttonColor} size="small" defaultPadding alignEnd onClick={onClose}>
+      <Button
+        color={buttonColor}
+        size="small"
+        defaultPadding
+        alignEnd
+        onClick={onClose}
+      >
         {content}
       </Button>
     </>

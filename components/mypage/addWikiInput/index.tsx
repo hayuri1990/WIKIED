@@ -1,13 +1,9 @@
 import Button from '@/components/common/button';
 import Input from '@/components/common/input';
 import styles from '@/components/mypage/addWikiInput/styles.module.scss';
-import { ProfileRequest } from '@/types/profile';
+import { AddWikiInputProps } from '@/components/mypage/addWikiInput/types';
 import { useState } from 'react';
 import Toast from '@/components/common/toast';
-
-interface AddWikiInputProps {
-  onAddWiki: (profileData: ProfileRequest) => Promise<boolean>;
-}
 
 const AddWikiInput = ({ onAddWiki }: AddWikiInputProps) => {
   const [question, setQuestion] = useState('');

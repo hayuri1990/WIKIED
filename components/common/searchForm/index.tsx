@@ -3,11 +3,7 @@ import styles from '@/components/common/searchForm/styles.module.scss';
 import Button from '@/components/common/button';
 import Image from 'next/image';
 import searchIcon from '@/assets/icons/ic_search.svg';
-
-interface SearchFormProps {
-  onSearch: (term: string) => void;
-  text: string;
-}
+import { SearchFormProps } from '@/components/common/searchForm/types';
 
 const SearchForm = ({ onSearch, text }: SearchFormProps) => {
   const [searchTerm, setSearchTerm] = useState('');

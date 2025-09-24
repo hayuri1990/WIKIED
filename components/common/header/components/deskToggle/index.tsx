@@ -2,10 +2,7 @@ import styles from '@/components/common/header/components/deskToggle/styles.modu
 import useWikiNavigation from '@/hooks/useCode/useCode';
 import { useAuth } from '@/contexts/AuthProvider';
 import { useRouter } from 'next/router';
-
-type DeskMenuProps = {
-  deskMenu: (e: React.MouseEvent<HTMLButtonElement>) => void;
-};
+import { DeskMenuProps } from '@/components/common/header/components/deskToggle/types';
 
 const DeskMenu = ({ deskMenu }: DeskMenuProps) => {
   const router = useRouter();

@@ -6,14 +6,7 @@ import Button from '@/components/common/button';
 import { useState } from 'react';
 import clsx from 'clsx';
 import { updateProfileEditStatus } from '@/services/api/profile';
-
-interface QuizProps {
-  size?: 'small' | 'large';
-  code: string;
-  setIsEditable: (editable: boolean) => void;
-  setIsModalOpen: (open: boolean) => void;
-  securityQuestion: string;
-}
+import { QuizProps } from '@/components/common/modal/components/quiz/types';
 
 const Quiz = ({
   code,

@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import clsx from 'clsx';
 import { v4 as uuidv4 } from 'uuid';
 import { ProfileDetail } from '@/types/wiki';
+import { WikiAsideProps } from '@/components/wiki/wikiAside/types';
 import UserAttribute from '@/components/wiki/wikiAside/userAttribute';
 import { imageFileToUrl, getUserInfo } from '@/services/api/profile';
 import Button from '@/components/common/button';
@@ -11,17 +12,6 @@ import expandIconReverse from '@/assets/icons/ic_expand_reverse.svg';
 import fileUploadIcon from '@/assets/icons/ic_camera.svg';
 import basicProfileImg from '@/assets/icons/ic_profile.svg';
 import Image from 'next/image';
-
-interface WikiAsideProps {
-  className: string;
-  profile: ProfileDetail;
-  setProfile: React.Dispatch<React.SetStateAction<ProfileDetail>>;
-  isEditable: boolean;
-  setIsEditable: (isEditable: boolean) => void;
-  onProfileChange: (updatedProfile: ProfileDetail) => void;
-  onSave: () => void;
-  onCancel: () => void;
-}
 
 const WikiAside = ({
   className,

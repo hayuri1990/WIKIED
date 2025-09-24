@@ -1,26 +1,9 @@
-import {
-  createContext,
-  useEffect,
-  useState,
-  ReactNode,
-  useContext,
-} from 'react';
+import { createContext, useEffect, useState, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { AxiosError, AxiosResponse } from 'axios';
 import { AuthResponseType, UserInfo } from '@/types/auth';
+import { AuthContextType, AuthProviderProps } from '@/contexts/types';
 import { authAxiosInstance } from '@/services/api/axiosInstance';
-
-interface AuthContextType {
-  isLoggedIn: boolean;
-  logInData: AuthResponseType | null;
-  user: UserInfo | null;
-  login: (authResponse: AuthResponseType) => void;
-  logout: () => void;
-}
-
-interface AuthProviderProps {
-  children: ReactNode;
-}
 
 const AuthContext = createContext<AuthContextType>({
   isLoggedIn: false,

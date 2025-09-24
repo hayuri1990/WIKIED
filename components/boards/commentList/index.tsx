@@ -1,19 +1,13 @@
 import { useState } from 'react';
 import styles from '@/components/boards/commentList/styles.module.scss';
-import { Comment } from '@/types/article';
 import Image from 'next/image';
 import defaultProfile from '@/assets/icons/ic_profile.svg';
 import editImage from '@/assets/icons/ic_edit.svg';
 import deleteImage from '@/assets/icons/ic_delete.svg';
 import Button from '@/components/common/button';
 import { useAuth } from '@/contexts/AuthProvider';
-
-interface CommentListProps {
-  comments: Comment[];
-  onAddComment: (newComment: string) => Promise<void>;
-  onDeleteComment: (commentId: number) => Promise<void>;
-  onEditComment: (commentId: number, newComment: string) => Promise<void>;
-}
+import { CommentListProps } from '@/components/boards/commentList/types';
+import { Comment } from '@/types/article';
 
 const CommentList = ({
   comments,
