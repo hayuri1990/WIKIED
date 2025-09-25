@@ -38,85 +38,97 @@ const ToolBar = ({
   };
   return (
     <div className={styles['toolbar']}>
-      <div className={styles['left-buttons']}>
-        <div className={styles['button-wrapper']}>
-          <button onClick={() => toggleInlineStyle('BOLD')}>
-            <Image src={boldIcon} alt="Bold" width={24} height={24} />
-          </button>
-          <button onClick={() => toggleInlineStyle('ITALIC')}>
-            <Image src={italicIcon} alt="Italic" width={24} height={24} />
-          </button>
-          <button onClick={() => toggleInlineStyle('UNDERLINE')}>
-            <Image src={underlineIcon} alt="Underline" width={24} height={24} />
-          </button>
-        </div>
-        <div className={styles['button-wrapper']}>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              handleToggleAlign('left');
-            }}
-            className={`${styles['align-button']} ${
-              isTextLeftAligned(editorState) ? styles['active'] : ''
-            }`}
-          >
-            <Image src={alignLeft} alt="왼쪽 정렬" width={24} height={24} />
-          </button>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              handleToggleAlign('center');
-            }}
-            className={`${styles['align-button']} ${
-              isTextCenterAligned(editorState) ? styles['active'] : ''
-            }`}
-          >
-            <Image src={alignCenter} alt="중앙 정렬" width={24} height={24} />
-          </button>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              handleToggleAlign('right');
-            }}
-            className={`${styles['align-button']} ${
-              isTextRightAligned(editorState) ? styles['active'] : ''
-            }`}
-          >
-            <Image src={alignRight} alt="오른쪽 정렬" width={24} height={24} />
-          </button>
-        </div>
-        <div className={styles['button-wrapper']}>
-          <button onClick={() => toggleBlockType('unordered-list-item')}>
-            <Image
-              src={listBulletIcon}
-              alt="Bullet List"
-              width={24}
-              height={24}
+      <div className={styles['toolbar-inner-wrapper']}>
+        <div className={styles['left-buttons']}>
+          <div className={styles['button-wrapper']}>
+            <button onClick={() => toggleInlineStyle('BOLD')}>
+              <Image src={boldIcon} alt="Bold" width={24} height={24} />
+            </button>
+            <button onClick={() => toggleInlineStyle('ITALIC')}>
+              <Image src={italicIcon} alt="Italic" width={24} height={24} />
+            </button>
+            <button onClick={() => toggleInlineStyle('UNDERLINE')}>
+              <Image
+                src={underlineIcon}
+                alt="Underline"
+                width={24}
+                height={24}
+              />
+            </button>
+          </div>
+          <div className={styles['button-wrapper']}>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                handleToggleAlign('left');
+              }}
+              className={`${styles['align-button']} ${
+                isTextLeftAligned(editorState) ? styles['active'] : ''
+              }`}
+            >
+              <Image src={alignLeft} alt="왼쪽 정렬" width={24} height={24} />
+            </button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                handleToggleAlign('center');
+              }}
+              className={`${styles['align-button']} ${
+                isTextCenterAligned(editorState) ? styles['active'] : ''
+              }`}
+            >
+              <Image src={alignCenter} alt="중앙 정렬" width={24} height={24} />
+            </button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                handleToggleAlign('right');
+              }}
+              className={`${styles['align-button']} ${
+                isTextRightAligned(editorState) ? styles['active'] : ''
+              }`}
+            >
+              <Image
+                src={alignRight}
+                alt="오른쪽 정렬"
+                width={24}
+                height={24}
+              />
+            </button>
+          </div>
+          <div className={styles['button-wrapper']}>
+            <button onClick={() => toggleBlockType('unordered-list-item')}>
+              <Image
+                src={listBulletIcon}
+                alt="Bullet List"
+                width={24}
+                height={24}
+              />
+            </button>
+            <button onClick={() => toggleBlockType('ordered-list-item')}>
+              <Image
+                src={listNumberIcon}
+                alt="Numbered List"
+                width={24}
+                height={24}
+              />
+            </button>
+            <ColorPalette
+              editorState={editorState}
+              onEditorChange={onEditorChange}
             />
-          </button>
-          <button onClick={() => toggleBlockType('ordered-list-item')}>
-            <Image
-              src={listNumberIcon}
-              alt="Numbered List"
-              width={24}
-              height={24}
-            />
-          </button>
-          <ColorPalette
-            editorState={editorState}
-            onEditorChange={onEditorChange}
-          />
-          <button onClick={onImageUpload}>
-            <Image src={imageIcon} alt="Image" width={24} height={24} />
-          </button>
+            <button onClick={onImageUpload}>
+              <Image src={imageIcon} alt="Image" width={24} height={24} />
+            </button>
+          </div>
         </div>
+        <button
+          onClick={() => console.log('Link functionality to be implemented')}
+          className={styles['link-button']}
+        >
+          <Image src={linkIcon} alt="Link" width={24} height={24} />
+        </button>
       </div>
-      <button
-        onClick={() => console.log('Link functionality to be implemented')}
-        className={styles['link-button']}
-      >
-        <Image src={linkIcon} alt="Link" width={24} height={24} />
-      </button>
     </div>
   );
 };

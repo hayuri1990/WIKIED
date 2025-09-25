@@ -5,6 +5,7 @@ import { Article } from '@/types/article';
 import { useAuth } from '@/contexts/AuthProvider';
 import dynamic from 'next/dynamic';
 import { LoadingSpinner } from '@/components/common/loadingSpinner';
+import styles from '@/pages/addboard/styles.module.scss';
 
 const DynamicEditor = dynamic(() => import('@/components/common/editor'), {
   ssr: false,
@@ -51,9 +52,11 @@ const ArticleEditPage = () => {
   }
 
   return (
-    <>
-      <DynamicEditor article={article} />
-    </>
+    <div className={styles['add-board-container']}>
+      <div className={styles['editor-container']}>
+        <DynamicEditor article={article} />
+      </div>
+    </div>
   );
 };
 
