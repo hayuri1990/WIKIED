@@ -3,12 +3,7 @@ import styles from '@/components/wikilist/userWikiList/userWikiCard/userWikiLink
 import LinkIcon from '@/assets/icons/ic_link.svg';
 import SnackBar from '@/components/common/snackbar';
 import Image from 'next/image';
-import { ProfileSummary } from '@/types/wiki';
-
-interface UserLinkProps {
-  url: string;
-  user: ProfileSummary;
-}
+import { UserLinkProps } from '@/components/wikilist/userWikiList/userWikiCard/userWikiLink/types';
 
 const UserWikiLink = ({ url, user }: UserLinkProps) => {
   const [showSnackBar, setShowSnackBar] = useState(false);

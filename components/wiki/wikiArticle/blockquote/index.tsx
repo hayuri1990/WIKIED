@@ -1,8 +1,5 @@
 import styles from '@/components/wiki/wikiArticle/blockquote/styles.module.scss';
-
-interface BlockquoteProps {
-  children: React.ReactNode;
-}
+import { BlockquoteProps } from '@/components/wiki/wikiArticle/blockquote/types';
 
 const Blockquote = ({ children }: BlockquoteProps) => {
   return (

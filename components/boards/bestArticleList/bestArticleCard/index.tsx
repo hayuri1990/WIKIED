@@ -2,12 +2,8 @@ import Image from 'next/image';
 import styles from '@/components/boards/bestArticleList/styles.module.scss';
 import likeIcon from '@/assets/icons/ic_heart.svg';
 import noImage from '@/assets/icons/ic_camera.svg';
-import { Article } from '@/types/article';
 import { useRouter } from 'next/router';
-
-interface BestArticleCardProps {
-  board: Article;
-}
+import { BestArticleCardProps } from '@/components/boards/bestArticleList/bestArticleCard/types';
 
 const BestArticleCard = ({ board }: BestArticleCardProps) => {
   const router = useRouter();

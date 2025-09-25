@@ -6,7 +6,7 @@ import {
   getProfileByCode,
   updateProfile,
 } from '@/services/api/profile';
-import { ProfileDetail, Section } from '@/types/wiki';
+import { ProfileDetail, Section, WikiProps } from '@/types/wiki';
 import WikiHeader from '@/components/wiki/wikiHeader';
 import WikiArticle from '@/components/wiki/wikiArticle';
 import WikiAside from '@/components/wiki/wikiAside';
@@ -15,12 +15,6 @@ import styles from '@/pages/wiki/[code]/styles.module.scss';
 import Modal from '@/components/common/modal';
 import Alert from '@/components/common/modal/components/alert';
 import { LoadingSpinner } from '@/components/common/loadingSpinner';
-
-interface WikiProps {
-  className: string;
-  profile: ProfileDetail;
-  securityAnswer: string;
-}
 
 const Wiki = (props: WikiProps) => {
   const [profile, setProfile] = useState<any>(null);

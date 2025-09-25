@@ -3,12 +3,7 @@ import closeIcon from '@/assets/icons/ic_close.svg';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useCallback } from 'react';
-
-interface ModalProps {
-  contents: React.FC<{ size: 'small' | 'large' }>;
-  size?: 'small' | 'large';
-  onClose?: () => void;
-}
+import { ModalProps } from '@/components/common/modal/types';
 
 const Modal = ({
   contents: Contents,

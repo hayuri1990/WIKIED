@@ -3,12 +3,7 @@ import circleIcon from '@/assets/icons/circle.svg';
 import styles from '@/components/common/modal/components/editNotification/notificationCard/styles.module.scss';
 import Image from 'next/image';
 import clsx from 'clsx';
-
-interface NotificationCardProps {
-  timeStamp: string;
-  size: 'small' | 'large';
-  onDelete: () => void;
-}
+import { NotificationCardProps } from '@/components/common/modal/components/editNotification/notificationCard/types';
 
 const NotificationCard = ({
   timeStamp,

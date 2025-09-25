@@ -8,7 +8,7 @@
 
 .editor-header {
   @include Flex(row, space-between, center);
-  margin-bottom: 24px;
+  gap: 10px;
 }
 
 .heading {
@@ -18,10 +18,13 @@
     $font-weight-2xl-semibold,
     $color-grayscale-500
   );
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .date-wrapper {
-  margin-bottom: 33px;
+  margin: 24px 0 33px;
   @include Font(
     $font-size-lg,
     $line-height-lg,
@@ -83,7 +86,7 @@
 }
 
 .content-count {
-  margin-top: 20px;
+  margin: 20px 0 10px;
   &-text {
     @include Font(
       $font-size-lg,
@@ -95,14 +98,14 @@
 }
 
 .editor-outer-container {
+  @include Flex(column, '', '');
+  gap: 20px;
   border-radius: 4px;
-  padding: 10px 0;
 }
 
 .editor-container {
   height: 470px;
   overflow-y: auto;
-  margin-bottom: 10px;
 
   :global {
     .public-DraftEditor-content {
@@ -160,7 +163,7 @@
   }
 
   .date-wrapper {
-    margin-bottom: 25px;
+    margin: 24px 0 25px;
 
     .date-post {
       margin-right: 12px;
@@ -176,7 +179,7 @@
   .editor-wrapper {
     width: 100%;
     margin: 0 auto;
-    padding: 0px 15px;
+    padding: 0px 20px;
   }
 
   .heading {
@@ -189,7 +192,7 @@
   }
 
   .date-wrapper {
-    margin-bottom: 20px;
+    margin: 16px 0 20px;
     @include Font(
       $font-size-xs,
       $line-height-xs-18,
@@ -225,6 +228,7 @@
   }
 
   .content-count {
+    margin: 16px 0 16px;
     &-text {
       @include Font(
         $font-size-md,

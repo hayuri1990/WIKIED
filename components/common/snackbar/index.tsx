@@ -4,12 +4,7 @@ import Image from 'next/image';
 import info from '@/assets/icons/ic_info.svg';
 import check from '@/assets/icons/check.svg';
 import error from '@/assets/icons/error.svg';
-
-interface SnackBarProps {
-  message: string;
-  type?: 'info' | 'success' | 'error';
-  size?: 'small' | 'large';
-}
+import { SnackBarProps } from '@/components/common/snackbar/types';
 
 const SnackBar = ({
   message,

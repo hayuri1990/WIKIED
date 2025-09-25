@@ -1,16 +1,7 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
 import styles from '@/components/wiki/wikiAside/styles.module.scss';
-
-interface UserAttributeProps {
-  attributeName: string;
-  value: string;
-  name: string;
-  isEditable: boolean;
-  isCurrentUser?: boolean;
-  onChange?: (name: string, value: string) => void;
-  className?: string;
-}
+import { UserAttributeProps } from '@/components/wiki/wikiAside/userAttribute/types';
 
 const UserAttribute = ({
   attributeName,

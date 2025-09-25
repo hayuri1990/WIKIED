@@ -2,12 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import styles from '@/components/common/wikiEditor/components/headingDropdown/styles.module.scss';
+import { HeadingDropdownProps } from '@/components/common/wikiEditor/components/headingDropdown/types';
 import arrowIcon from '@/assets/icons/ic_arrow.svg';
-
-interface HeadingDropdownProps {
-  onHeadingSelect: (headingType: string) => void;
-  selectedHeading: string;
-}
 
 const HeadingDropdown = ({
   onHeadingSelect,

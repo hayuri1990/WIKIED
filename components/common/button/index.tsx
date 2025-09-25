@@ -1,21 +1,6 @@
 import styles from '@/components/common/button/styles.module.scss';
 import clsx from 'clsx';
-
-interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
-  color:
-    | 'primary'
-    | 'alert'
-    | 'outline'
-    | 'disabled'
-    | 'main-top'
-    | 'main-bottom';
-  size?: 'small' | 'large' | 'x-large';
-  defaultPadding?: boolean;
-  fullWidth?: boolean;
-  alignEnd?: boolean;
-  className?: string;
-  trailingIcon?: React.ReactNode;
-}
+import { ButtonProps } from '@/components/common/button/types';
 
 const Button = ({
   children,

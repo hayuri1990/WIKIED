@@ -16,16 +16,10 @@ import { Options, stateToHTML } from 'draft-js-export-html';
 import Modal from '@/components/common/modal';
 import AddImage from '@/components/common/modal/components/addImage';
 import Media from '@/components/common/wikiEditor/components/media';
-import { ProfileDetail } from '@/types/wiki';
+import { WikiEditorProps } from '@/components/common/wikiEditor/types';
 import { blockStyleFn, initialStyleMap } from 'contenido';
 import { colorPalette } from '@/components/common/wikiEditor/components/colorPalette';
 import { imageFileToUrl } from '@/services/api/profile';
-
-interface WikiEditorProps {
-  profile: ProfileDetail;
-  onEditorChange: (content: string, htmlContent: string) => void;
-  initialContent?: string;
-}
 
 const WikiEditor = ({
   profile,

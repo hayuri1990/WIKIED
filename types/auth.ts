@@ -16,6 +16,18 @@ export type ChangePasswordFormDataType = {
   passwordConfirmation: string;
 };
 
+export interface loginErrorState {
+  email?: string;
+  password?: string;
+}
+
+export interface signUpErrorState {
+  email?: string;
+  name?: string;
+  password?: string;
+  passwordConfirmation?: string;
+}
+
 export type ErrorsType =
   | LoginFormDataType
   | SignUpFormDataType

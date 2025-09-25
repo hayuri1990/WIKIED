@@ -5,23 +5,12 @@ import { ChangePasswordRequest } from '@/types/user';
 import { useState, ChangeEvent, useEffect } from 'react';
 import useDebounce from '@/hooks/useDebounce/useDebounce';
 import { getErrorMessage } from '@/types/authUtils';
+import {
+  FormState,
+  ErrorState,
+  ChangePasswordInputProps,
+} from '@/components/mypage/changePasswordInput/types';
 import Toast from '@/components/common/toast';
-
-interface FormState {
-  currentPassword: string;
-  newPassword: string;
-  verifyNewPassword: string;
-}
-
-interface ErrorState {
-  currentPassword?: string;
-  newPassword?: string;
-  verifyNewPassword?: string;
-}
-
-interface ChangePasswordInputProps {
-  onChangePassword: (requestData: ChangePasswordRequest) => Promise<boolean>;
-}
 
 const ChangePasswordInput = ({
   onChangePassword,
