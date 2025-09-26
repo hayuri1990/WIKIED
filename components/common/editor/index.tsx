@@ -200,15 +200,25 @@ const Editor = ({ article }: { article?: Article }) => {
           alert('게시물이 수정되었습니다.');
           router.push(`/boards/${response.data.id}`);
         } else {
-          const response = await postArticle(articleData);
-          alert('게시물이 등록되었습니다.');
-          router.push(`/boards/${response.data.id}`);
+          try {
+            const response = await postArticle(articleData);
+            alert('게시물이 등록되었습니다.');
+            router.push(`/boards/${response.data.id}`);
+          } catch (error: any) {
+            if (error.response && error.response.status === 400) {
+              alert('이미지 등록은 필수입니다.');
+            } else {
+              console.error('error: ', error);
+              alert('게시물 등록 중 오류가 발생했습니다.');
+            }
+          }
         }
       } catch (error) {
         console.error('Error details:', error);
       }
     }
   };
+
   const characterCount = editorState
     .getCurrentContent()
     .getPlainText('').length;
