@@ -4,40 +4,17 @@ import styles from '@/components/common/modal/components/editNotification/styles
 import NotificationCard from '@/components/common/modal/components/editNotification/notificationCard';
 import { useState, useEffect, useCallback } from 'react';
 import clsx from 'clsx';
+import { EditNotificationProps } from '@/components/common/modal/components/editNotification/types';
 import {
-  EditNotificationProps,
-  Notification,
-} from '@/components/common/modal/components/editNotification/types';
-import { mockNotifications } from '@/components/common/modal/components/editNotification/constants';
+  deleteNotifications,
+  getNotifications,
+} from '@/services/api/notification';
+import { Notification } from '@/types/notification';
 
 const EditNotification = ({
   size = 'large',
   onClose,
 }: EditNotificationProps) => {
-  const [notifications, setNotifications] = useState<Notification[]>([]);
-  const [notificationCount, setNotificationCount] = useState<number>(0);
-
-  const handleDeleteNotification = (id: number) => {
-    const updatedNotifications = notifications.filter((n) => n.id !== id);
-    setNotifications(updatedNotifications);
-    setNotificationCount(updatedNotifications.length);
-  };
-
-  // 알림 삭제 시 notificationCount 갱신되는 로직
-  useEffect(() => {
-    setNotificationCount(notifications.length);
-  }, [notifications]);
-
-  // mockData로 상태 초기화 하는 로직
-  const loadMockNotifications = () => {
-    setNotifications(mockNotifications);
-    setNotificationCount(mockNotifications.length);
-  };
-
-  useEffect(() => {
-    loadMockNotifications();
-  }, []);
-
   const closeModal = useCallback(() => {
     if (onClose) {
       onClose();
@@ -57,14 +34,51 @@ const EditNotification = ({
    * @ 1. overlay style 수정 필요
    */
 
+  // 알림 목록 조회
+  const [page] = useState(1);
+  const [pageSize] = useState(10);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [notificationCount, setNotificationCount] = useState<number | null>(
+    null,
+  );
+
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      try {
+        const { data } = await getNotifications({ page, pageSize });
+        setNotifications(data.list);
+        setNotificationCount(data.totalCount);
+      } catch (error) {
+        console.error('알림 가져오기 실패', error);
+      }
+    };
+
+    fetchNotifications();
+  }, [page, pageSize]);
+
+  // 알림 삭제
+  const handleDeleteNotification = async (id: number) => {
+    try {
+      await deleteNotifications(id);
+      setNotifications((prev) => prev.filter((n) => n.id !== id));
+    } catch (error) {
+      console.error('알림 삭제 실패', error);
+    }
+    const updatedNotifications = notifications.filter((n) => n.id !== id);
+    setNotifications(updatedNotifications);
+    setNotificationCount(updatedNotifications.length);
+  };
+
   return (
     <div className={styles['overlay']} onClick={handleOverlayClick}>
       <div className={clsx(styles['container'], styles[size])}>
         <div className={styles['header']}>
           <strong className={clsx(styles['title'], styles[size])}>
-            {notificationCount > 0
-              ? `알림 ${notificationCount}개`
-              : '아직 알림이 없어요 🙂'}
+            {notificationCount === null
+              ? null
+              : notificationCount > 0
+                ? `알림 ${notificationCount}개`
+                : '아직 알림이 없어요 🙂'}
           </strong>
           <button
             className={clsx(styles['close-button'], styles[size])}
@@ -81,7 +95,7 @@ const EditNotification = ({
           {notifications.map((notification) => (
             <NotificationCard
               key={notification.id}
-              timeStamp={notification.timeStamp}
+              timeStamp={notification.createdAt}
               size={size}
               onDelete={() => handleDeleteNotification(notification.id)}
             />
