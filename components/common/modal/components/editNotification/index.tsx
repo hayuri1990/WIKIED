@@ -71,7 +71,13 @@ const EditNotification = ({
 
   return (
     <div className={styles['overlay']} onClick={handleOverlayClick}>
-      <div className={clsx(styles['container'], styles[size])}>
+      <div
+        className={clsx(
+          styles['container'],
+          styles[size],
+          notifications.length > 0 && styles['has-notifications'],
+        )}
+      >
         <div className={styles['header']}>
           <strong className={clsx(styles['title'], styles[size])}>
             {notificationCount === null
