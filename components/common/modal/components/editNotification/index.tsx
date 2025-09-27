@@ -29,11 +29,6 @@ const EditNotification = ({
     }
   };
 
-  /**
-   * @ TODO
-   * @ 1. overlay style 수정 필요
-   */
-
   // 알림 목록 조회
   const [page] = useState(1);
   const [pageSize] = useState(10);
