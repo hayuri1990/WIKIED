@@ -10,6 +10,7 @@ import {
   getNotifications,
 } from '@/services/api/notification';
 import { Notification } from '@/types/notification';
+import { formatRelativeTime } from '@/utils/dateFormat';
 
 const EditNotification = ({
   size = 'large',
@@ -96,7 +97,7 @@ const EditNotification = ({
           {notifications.map((notification) => (
             <NotificationCard
               key={notification.id}
-              timeStamp={notification.createdAt}
+              timeStamp={formatRelativeTime(notification.createdAt)}
               size={size}
               onDelete={() => handleDeleteNotification(notification.id)}
             />
