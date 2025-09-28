@@ -84,7 +84,7 @@ const LoginPage = () => {
         });
         const authResponse: AuthResponseType = response.data;
         login(authResponse);
-        console.log('로그인 성공:', response.data);
+        console.log('로그인 성공:', response.data.user);
         localStorage.setItem(
           'toast',
           JSON.stringify({
