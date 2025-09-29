@@ -173,6 +173,7 @@ const CommentList = ({
                     value={editingContent}
                     onChange={handleEditChange}
                     className={styles['edit-comment-textarea']}
+                    placeholder="댓글을 입력해 주세요"
                     maxLength={maxLength}
                   />
                   <div className={styles['edit-comment-footer']}>
