@@ -16,7 +16,7 @@
     padding: 20px;
     position: absolute;
     top: 85px;
-    right: 165px;
+    right: 136px;
 
     &.small {
       @include Size(275px, auto);
@@ -104,7 +104,7 @@
   .overlay {
     .container {
       &.small {
-        right: 105px;
+        right: 76px;
       }
     }
   }
@@ -114,7 +114,7 @@
   .overlay {
     .container {
       &.small {
-        right: 40px;
+        right: 26px;
       }
     }
   }
