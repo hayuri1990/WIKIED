@@ -5,10 +5,12 @@
   column-gap: 18px;
 
   .alarm {
+    @include Flex(column, center, center);
     background-color: $color-grayscale-50;
   }
 
   .profile-default {
+    @include Flex(column, center, center);
     background-color: $color-grayscale-50;
   }
 
