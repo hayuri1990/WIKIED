@@ -20,6 +20,8 @@
 }
 
 .comment-input-container {
+  @include Flex(column, '', '');
+  gap: 10px;
   margin-bottom: 42px;
   background-color: $color-grayscale-100;
   border-radius: 10px;
@@ -27,7 +29,7 @@
 }
 
 .comment-textarea {
-  @include Size(100%, 80px);
+  @include Size(100%, 85px);
   @include Font(
     $font-size-md,
     $line-height-md,
@@ -64,11 +66,16 @@
   width: 120px;
 }
 
+.comment-list {
+  @include Flex(column, '', '');
+  gap: 24px;
+  margin-bottom: 60px;
+}
+
 .comment-box {
   display: flex;
   align-items: flex-start;
   padding: 22px 30px;
-  margin-bottom: 24px;
   border-radius: 10px;
   box-shadow: 0px 4px 20px 0px $color-shadow;
 }
@@ -143,6 +150,8 @@
 }
 
 .edit-comment-container {
+  @include Flex(column, '', '');
+  gap: 10px;
   position: relative;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -152,14 +161,15 @@
 }
 
 .edit-comment-textarea {
-  @include Size(100%, 80px);
+  @include Size(100%, 65px);
   @include Font(
     $font-size-md,
     $line-height-md,
     $font-weight-md-regular,
     $color-grayscale-500
   );
-  padding: 13px 15px 40px;
+  font-family: Pretendard, sans-serif;
+  padding: 13px 15px 0;
   border: none;
   background-color: transparent;
   resize: none;
@@ -170,17 +180,20 @@
 }
 
 .edit-comment-footer {
-  @include Flex(row, space-between, center);
-  position: absolute;
+  @include Flex(row, space-between, flex-end);
+  @include Size(100%, '');
   bottom: 10px;
-  right: 15px;
-  padding: 0;
+  padding: 0 15px 13px;
   background-color: transparent;
 }
 
 .edit-comment-buttons {
   display: flex;
   gap: 10px;
+
+  button {
+    @include Size(50px, 40px);
+  }
 }
 
 .character-count {
@@ -206,8 +219,12 @@
     padding: 0 15px 15px 20px;
   }
 
+  .comment-list {
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
   .comment-box {
-    margin-bottom: 16px;
     padding: 21px 30px;
   }
 }
@@ -231,8 +248,12 @@
     margin-right: 15px;
   }
 
+  .comment-list {
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
   .comment-box {
-    margin-bottom: 14px;
     padding: 16px 20px;
   }
 
@@ -265,11 +286,11 @@
   }
 
   .edit-comment-textarea {
-    padding: 16px 14px 40px 20px;
+    padding: 16px 14px 0 20px;
   }
 
   .edit-comment-footer {
     bottom: 5px;
-    right: 10px;
+    padding: 0 14px 16px 20px;
   }
 }

@@ -93,6 +93,10 @@
   .article {
     padding: 0 60px;
 
+    &-container {
+      margin: 40px auto;
+    }
+
     &-header {
       border-bottom: 1px solid $color-grayscale-200;
       padding-bottom: 8px;
@@ -119,6 +123,10 @@
 @media (max-width: $mobile-max-width) {
   .article {
     padding: 0 20px;
+
+    &-container {
+      margin: 20px auto 38px;
+    }
 
     .header-wrapper {
       margin-bottom: 14px;
