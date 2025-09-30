@@ -27,6 +27,7 @@ export interface signUpErrorState {
   name?: string;
   password?: string;
   passwordConfirmation?: string;
+  [key: string]: string | undefined;
 }
 
 export type ErrorsType =

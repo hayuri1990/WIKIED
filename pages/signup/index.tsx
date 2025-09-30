@@ -1,15 +1,15 @@
-import { useState, ChangeEvent, FocusEvent, useEffect } from 'react';
-import styles from '@/pages/signup/styles.module.scss';
+import { useState, ChangeEvent, FocusEvent } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { publicAxiosInstance } from '@/services/api/axiosInstance';
+import styles from '@/pages/signup/styles.module.scss';
 import Button from '@/components/common/button';
 import Input from '@/components/common/input';
-import { SignupInputId, getErrorMessage } from '@/types/authUtils';
-import { SignUpFormDataType, signUpErrorState } from '@/types/auth';
-import useDebounce from '@/hooks/useDebounce/useDebounce';
-import { publicAxiosInstance } from '@/services/api/axiosInstance';
-import { useRouter } from 'next/router';
 import Toast from '@/components/common/toast';
 import PasswordInput from '@/components/common/input/components/passwordInput';
+import { SignupInputId, getErrorMessage } from '@/types/authUtils';
+import { SignUpFormDataType, signUpErrorState } from '@/types/auth';
+import { usePasswordValidation } from '@/hooks/usePasswordValidation/usePasswordValidation';
 
 const SignupPage = () => {
   const [formState, setFormState] = useState<SignUpFormDataType>({
@@ -35,28 +35,12 @@ const SignupPage = () => {
     setToast((prevState) => ({ ...prevState, visible: false }));
   };
 
-  const debouncedPassword = useDebounce(formState.password, 500);
-  const debouncedPasswordConfirmation = useDebounce(
-    formState.passwordConfirmation,
-    500,
-  );
-
-  useEffect(() => {
-    if (debouncedPassword || debouncedPasswordConfirmation) {
-      const passwordError = getErrorMessage('password', debouncedPassword);
-      const passwordConfirmationError = getErrorMessage(
-        'passwordConfirmation',
-        debouncedPasswordConfirmation,
-        debouncedPassword,
-      );
-
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        password: passwordError,
-        passwordConfirmation: passwordConfirmationError,
-      }));
-    }
-  }, [debouncedPassword, debouncedPasswordConfirmation]);
+  // 비밀번호 유효성 검사
+  usePasswordValidation({
+    formState,
+    setErrors,
+    fields: ['password', 'passwordConfirmation'],
+  });
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
