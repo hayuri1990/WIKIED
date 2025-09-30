@@ -1,5 +1,4 @@
 import Button from '@/components/common/button';
-import Input from '@/components/common/input';
 import styles from '@/components/mypage/changePasswordInput/styles.module.scss';
 import { ChangePasswordRequest } from '@/types/user';
 import { useState, ChangeEvent, useEffect } from 'react';
@@ -11,6 +10,7 @@ import {
   ChangePasswordInputProps,
 } from '@/components/mypage/changePasswordInput/types';
 import Toast from '@/components/common/toast';
+import PasswordInput from '@/components/common/input/components/passwordInput';
 
 const ChangePasswordInput = ({
   onChangePassword,
@@ -31,6 +31,22 @@ const ChangePasswordInput = ({
     formState.verifyNewPassword,
     500,
   );
+
+  // 기존 비밀번호 유효성 검사
+  const debouncedCurrentPassword = useDebounce(formState.currentPassword, 500);
+
+  useEffect(() => {
+    if (debouncedCurrentPassword) {
+      const currentPasswordError = getErrorMessage(
+        'password',
+        debouncedCurrentPassword,
+      );
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        currentPassword: currentPasswordError,
+      }));
+    }
+  }, [debouncedCurrentPassword]);
 
   useEffect(() => {
     // 새 비밀번호 필드의 유효성 검사
@@ -104,39 +120,31 @@ const ChangePasswordInput = ({
 
   return (
     <form className={styles['container']} onSubmit={handleSubmit}>
-      <label htmlFor="password" className={styles['label']}>
-        비밀번호 변경
-      </label>
       <div className={styles['pwd-input-wrapper']}>
-        <Input
+        <PasswordInput
           id="currentPassword"
-          name="currentPassword"
-          placeholder="기존 비밀번호"
+          label="비밀번호 변경"
+          hasLabel
           value={formState.currentPassword}
-          onChange={handleChange}
-          type="password"
-          fullWidth
+          handleChange={handleChange}
           errorMessage={errors.currentPassword}
+          placeholder="기존 비밀번호"
         />
-        <Input
+        <PasswordInput
           id="newPassword"
-          name="newPassword"
+          hasLabel={false}
           value={formState.newPassword}
-          placeholder="새 비밀번호"
-          onChange={handleChange}
-          type="password"
-          fullWidth
+          handleChange={handleChange}
           errorMessage={errors.newPassword}
+          placeholder="새 비밀번호"
         />
-        <Input
+        <PasswordInput
           id="verifyNewPassword"
-          name="verifyNewPassword"
+          hasLabel={false}
           value={formState.verifyNewPassword}
-          placeholder="새 비밀번호 확인"
-          onChange={handleChange}
-          type="password"
-          fullWidth
+          handleChange={handleChange}
           errorMessage={errors.verifyNewPassword}
+          placeholder="새 비밀번호 확인"
         />
       </div>
       <Button color="primary" size="small" alignEnd defaultPadding>
