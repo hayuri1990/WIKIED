@@ -9,6 +9,7 @@ import useDebounce from '@/hooks/useDebounce/useDebounce';
 import { publicAxiosInstance } from '@/services/api/axiosInstance';
 import { useRouter } from 'next/router';
 import Toast from '@/components/common/toast';
+import PasswordInput from '@/components/common/input/components/passwordInput';
 
 const SignupPage = () => {
   const [formState, setFormState] = useState<SignUpFormDataType>({
@@ -135,8 +136,8 @@ const SignupPage = () => {
             onBlur={handleBlur}
             placeholder="이름을 입력해 주세요"
             errorMessage={errors.name}
-          ></Input>
-
+            autoComplete="name"
+          />
           <Input
             id="email"
             label="이메일"
@@ -145,28 +146,28 @@ const SignupPage = () => {
             onBlur={handleBlur}
             placeholder="이메일을 입력해 주세요"
             errorMessage={errors.email}
-          ></Input>
-          <Input
-            className={styles['password-input']}
+            autoComplete="email"
+          />
+          <PasswordInput
             id="password"
             label="비밀번호"
+            hasLabel
             value={formState.password}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            placeholder="비밀번호를 입력해 주세요"
+            handleChange={handleChange}
+            handleBlur={handleBlur}
             errorMessage={errors.password}
-            type="password"
-          ></Input>
-          <Input
+            placeholder="비밀번호를 입력해 주세요"
+          />
+          <PasswordInput
             id="passwordConfirmation"
             label="비밀번호 확인"
+            hasLabel
             value={formState.passwordConfirmation}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            placeholder="비밀번호를 입력해 주세요"
+            handleChange={handleChange}
+            handleBlur={handleBlur}
             errorMessage={errors.passwordConfirmation}
-            type="password"
-          ></Input>
+            placeholder="비밀번호를 입력해 주세요"
+          />
         </div>
         <Button color="primary" size="large">
           가입하기
