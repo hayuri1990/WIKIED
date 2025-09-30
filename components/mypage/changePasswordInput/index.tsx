@@ -11,10 +11,13 @@ import PasswordInput from '@/components/common/input/components/passwordInput';
 import { ChangePasswordRequest } from '@/types/user';
 import { usePasswordValidation } from '@/hooks/usePasswordValidation/usePasswordValidation';
 import { ChangePasswordInputId, getErrorMessage } from '@/types/authUtils';
+import { useRouter } from 'next/navigation';
 
 const ChangePasswordInput = ({
   onChangePassword,
 }: ChangePasswordInputProps) => {
+  const router = useRouter();
+
   const [formState, setFormState] = useState<FormState>({
     currentPassword: '',
     newPassword: '',
@@ -76,6 +79,9 @@ const ChangePasswordInput = ({
       if (success) {
         setToastMessage('비밀번호 변경이 완료되었습니다 😃');
         setToastType('success');
+        setTimeout(() => {
+          router.push('/');
+        }, 2000);
       } else {
         setToastMessage('비밀번호 변경에 실패했어요 🥲');
         setToastType('error');
