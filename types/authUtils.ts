@@ -10,18 +10,31 @@ export type LoginInputId =
   | 'password'
   | 'passwordConfirmation';
 
+export type ChangePasswordInputId =
+  | 'currentPassword'
+  | 'newPassword'
+  | 'verifyNewPassword';
+
 export const isValidEmail = (email: string) => {
   const emailRegex = /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
   return emailRegex.test(email);
 };
 
 export const getErrorMessage = (
-  type: 'email' | 'name' | 'password' | 'passwordConfirmation',
+  type: SignupInputId | LoginInputId | ChangePasswordInputId,
   value: string,
   password?: string,
 ): string => {
   const trimmedValue = value.trim();
-  switch (type) {
+
+  const normalizedType: 'email' | 'name' | 'password' | 'passwordConfirmation' =
+    type === 'currentPassword' || type === 'newPassword'
+      ? 'password'
+      : type === 'verifyNewPassword'
+        ? 'passwordConfirmation'
+        : type;
+
+  switch (normalizedType) {
     case 'email':
       if (!trimmedValue) return '이메일을 입력해 주세요';
       if (!isValidEmail(trimmedValue)) return '잘못된 이메일 형식입니다';

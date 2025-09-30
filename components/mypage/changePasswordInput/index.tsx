@@ -1,9 +1,6 @@
+import { useState, ChangeEvent, FocusEvent } from 'react';
 import Button from '@/components/common/button';
 import styles from '@/components/mypage/changePasswordInput/styles.module.scss';
-import { ChangePasswordRequest } from '@/types/user';
-import { useState, ChangeEvent, useEffect } from 'react';
-import useDebounce from '@/hooks/useDebounce/useDebounce';
-import { getErrorMessage } from '@/types/authUtils';
 import {
   FormState,
   ErrorState,
@@ -11,6 +8,9 @@ import {
 } from '@/components/mypage/changePasswordInput/types';
 import Toast from '@/components/common/toast';
 import PasswordInput from '@/components/common/input/components/passwordInput';
+import { ChangePasswordRequest } from '@/types/user';
+import { usePasswordValidation } from '@/hooks/usePasswordValidation/usePasswordValidation';
+import { ChangePasswordInputId, getErrorMessage } from '@/types/authUtils';
 
 const ChangePasswordInput = ({
   onChangePassword,
@@ -26,54 +26,12 @@ const ChangePasswordInput = ({
   const [toastMessage, setToastMessage] = useState<string>('');
   const [toastType, setToastType] = useState<'success' | 'error'>('success');
 
-  const debouncedNewPassword = useDebounce(formState.newPassword, 500);
-  const debouncedVerifyNewPassword = useDebounce(
-    formState.verifyNewPassword,
-    500,
-  );
-
-  // 기존 비밀번호 유효성 검사
-  const debouncedCurrentPassword = useDebounce(formState.currentPassword, 500);
-
-  useEffect(() => {
-    if (debouncedCurrentPassword) {
-      const currentPasswordError = getErrorMessage(
-        'password',
-        debouncedCurrentPassword,
-      );
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        currentPassword: currentPasswordError,
-      }));
-    }
-  }, [debouncedCurrentPassword]);
-
-  useEffect(() => {
-    // 새 비밀번호 필드의 유효성 검사
-    if (debouncedNewPassword) {
-      const newPasswordError = getErrorMessage(
-        'password',
-        debouncedNewPassword,
-      );
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        newPassword: newPasswordError,
-      }));
-    }
-
-    // 새 비밀번호 확인 필드의 유효성 검사
-    if (debouncedVerifyNewPassword) {
-      const verifyNewPasswordError = getErrorMessage(
-        'passwordConfirmation',
-        debouncedVerifyNewPassword,
-        debouncedNewPassword,
-      );
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        verifyNewPassword: verifyNewPasswordError,
-      }));
-    }
-  }, [debouncedNewPassword, debouncedVerifyNewPassword]);
+  // 비밀번호 유효성 검사
+  usePasswordValidation({
+    formState,
+    setErrors,
+    fields: ['currentPassword', 'newPasswordError', 'verifyNewPasswordError'],
+  });
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -81,6 +39,18 @@ const ChangePasswordInput = ({
     const { id, value } = e.target;
     setFormState((prevState) => ({ ...prevState, [id]: value }));
     setErrors((prevErrors) => ({ ...prevErrors, [id]: '' }));
+  };
+
+  const handleBlur = (
+    e: FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const { id, value } = e.target;
+    const errorMessage = getErrorMessage(
+      id as ChangePasswordInputId,
+      value,
+      formState.newPassword,
+    );
+    setErrors((prevErrors) => ({ ...prevErrors, [id]: errorMessage }));
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -135,6 +105,7 @@ const ChangePasswordInput = ({
           hasLabel={false}
           value={formState.newPassword}
           handleChange={handleChange}
+          handleBlur={handleBlur}
           errorMessage={errors.newPassword}
           placeholder="새 비밀번호"
         />
@@ -143,6 +114,7 @@ const ChangePasswordInput = ({
           hasLabel={false}
           value={formState.verifyNewPassword}
           handleChange={handleChange}
+          handleBlur={handleBlur}
           errorMessage={errors.verifyNewPassword}
           placeholder="새 비밀번호 확인"
         />
