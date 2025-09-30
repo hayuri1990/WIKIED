@@ -39,3 +39,13 @@ export const getErrorMessage = (
       return '';
   }
 };
+
+export interface UsePasswordValidationProps<
+  T extends Record<string, string | undefined>,
+> {
+  formState: T;
+  setErrors: React.Dispatch<
+    React.SetStateAction<Record<string, string | undefined>>
+  >;
+  fields: (keyof T)[];
+}
