@@ -55,7 +55,6 @@ const ChangePasswordInput = ({
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    console.log('handleSubmit 시작');
 
     const requestData: ChangePasswordRequest = {
       currentPassword: formState.currentPassword,
