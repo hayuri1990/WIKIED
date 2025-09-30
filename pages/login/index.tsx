@@ -1,20 +1,20 @@
-import { useState, ChangeEvent, FocusEvent, useEffect } from 'react';
+import { useState, ChangeEvent, FocusEvent } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { publicAxiosInstance } from '@/services/api/axiosInstance';
 import styles from '@/pages/login/styles.module.scss';
-import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthProvider';
-import { LoginInputId, getErrorMessage } from '@/types/authUtils';
 import Button from '@/components/common/button';
 import Input from '@/components/common/input';
-import useDebounce from '@/hooks/useDebounce/useDebounce';
+import Toast from '@/components/common/toast';
+import PasswordInput from '@/components/common/input/components/passwordInput/index';
+import { LoginInputId, getErrorMessage } from '@/types/authUtils';
 import {
   AuthResponseType,
   LoginFormDataType,
   loginErrorState,
 } from '@/types/auth';
-import Toast from '@/components/common/toast';
-import PasswordInput from '@/components/common/input/components/passwordInput/index';
+import { usePasswordValidation } from '@/hooks/usePasswordValidation/usePasswordValidation';
 
 const LoginPage = () => {
   const router = useRouter();
@@ -37,18 +37,12 @@ const LoginPage = () => {
 
   const { login } = useAuth();
 
-  const debouncedPassword = useDebounce(formState.password, 500);
-
-  useEffect(() => {
-    if (debouncedPassword) {
-      const passwordError = getErrorMessage('password', debouncedPassword);
-
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        password: passwordError,
-      }));
-    }
-  }, [debouncedPassword]);
+  // 비밀번호 유효성 검사
+  usePasswordValidation({
+    formState,
+    setErrors,
+    fields: ['password'],
+  });
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -62,7 +56,11 @@ const LoginPage = () => {
     e: FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { id, value } = e.target;
-    const errorMessage = getErrorMessage(id as LoginInputId, value);
+    const errorMessage = getErrorMessage(
+      id as LoginInputId,
+      value,
+      formState.password,
+    );
     setErrors((prevErrors) => ({ ...prevErrors, [id]: errorMessage }));
   };
 

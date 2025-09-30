@@ -19,6 +19,7 @@ export type ChangePasswordFormDataType = {
 export interface loginErrorState {
   email?: string;
   password?: string;
+  [key: string]: string | undefined;
 }
 
 export interface signUpErrorState {
