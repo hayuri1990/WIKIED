@@ -14,6 +14,7 @@ import {
   loginErrorState,
 } from '@/types/auth';
 import Toast from '@/components/common/toast';
+import PasswordInput from '@/components/common/input/components/passwordInput/index';
 
 const LoginPage = () => {
   const router = useRouter();
@@ -131,17 +132,18 @@ const LoginPage = () => {
                   onBlur={handleBlur}
                   placeholder="이메일을 입력해 주세요"
                   errorMessage={errors.email}
-                ></Input>
-                <Input
+                  autoComplete="username"
+                />
+                <PasswordInput
                   id="password"
                   label="비밀번호"
+                  hasLabel
                   value={formState.password}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  placeholder="비밀번호를 입력해 주세요"
+                  handleChange={handleChange}
+                  handleBlur={handleBlur}
                   errorMessage={errors.password}
-                  type="password"
-                ></Input>
+                  placeholder="비밀번호를 입력해 주세요"
+                />
               </div>
               <Button color="primary" size="large" fullWidth>
                 로그인
