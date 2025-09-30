@@ -56,6 +56,14 @@ const ChangePasswordInput = ({
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
+    if (formState.currentPassword === formState.newPassword) {
+      setToastMessage('현재 비밀번호와 동일합니다.');
+      setToastType('error');
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 2000);
+      return;
+    }
+
     const requestData: ChangePasswordRequest = {
       currentPassword: formState.currentPassword,
       password: formState.newPassword,
