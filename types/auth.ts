@@ -12,13 +12,14 @@ export type SignUpFormDataType = {
 
 export type ChangePasswordFormDataType = {
   currentPassword: string;
-  password: string;
-  passwordConfirmation: string;
+  newPassword: string;
+  verifyNewPassword: string;
 };
 
 export interface loginErrorState {
   email?: string;
   password?: string;
+  [key: string]: string | undefined;
 }
 
 export interface signUpErrorState {
@@ -26,6 +27,7 @@ export interface signUpErrorState {
   name?: string;
   password?: string;
   passwordConfirmation?: string;
+  [key: string]: string | undefined;
 }
 
 export type ErrorsType =

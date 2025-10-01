@@ -1,14 +1,16 @@
-import { useState, ChangeEvent, FocusEvent, useEffect } from 'react';
-import styles from '@/pages/signup/styles.module.scss';
+import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { publicAxiosInstance } from '@/services/api/axiosInstance';
+import styles from '@/pages/signup/styles.module.scss';
 import Button from '@/components/common/button';
 import Input from '@/components/common/input';
-import { SignupInputId, getErrorMessage } from '@/types/authUtils';
-import { SignUpFormDataType, signUpErrorState } from '@/types/auth';
-import useDebounce from '@/hooks/useDebounce/useDebounce';
-import { publicAxiosInstance } from '@/services/api/axiosInstance';
-import { useRouter } from 'next/router';
 import Toast from '@/components/common/toast';
+import PasswordInput from '@/components/common/input/components/passwordInput';
+import { SignUpFormDataType, signUpErrorState } from '@/types/auth';
+import { usePasswordValidation } from '@/hooks/usePasswordValidation/usePasswordValidation';
+import { useForm } from '@/hooks/useForm/useForm';
+import { withValidation } from '@/utils/formUtils';
 
 const SignupPage = () => {
   const [formState, setFormState] = useState<SignUpFormDataType>({
@@ -34,68 +36,31 @@ const SignupPage = () => {
     setToast((prevState) => ({ ...prevState, visible: false }));
   };
 
-  const debouncedPassword = useDebounce(formState.password, 500);
-  const debouncedPasswordConfirmation = useDebounce(
-    formState.passwordConfirmation,
-    500,
-  );
+  // 비밀번호 유효성 검사
+  usePasswordValidation({
+    formState,
+    setErrors,
+    fields: ['password', 'passwordConfirmation'],
+  });
 
-  useEffect(() => {
-    if (debouncedPassword || debouncedPasswordConfirmation) {
-      const passwordError = getErrorMessage('password', debouncedPassword);
-      const passwordConfirmationError = getErrorMessage(
-        'passwordConfirmation',
-        debouncedPasswordConfirmation,
-        debouncedPassword,
-      );
+  const { handleChange, handleBlur, validateForm } =
+    useForm<SignUpFormDataType>({
+      formState,
+      setFormState,
+      setErrors,
+      passwordFieldKey: 'password',
+      fields: ['email', 'name', 'password', 'passwordConfirmation'],
+    });
 
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        password: passwordError,
-        passwordConfirmation: passwordConfirmationError,
-      }));
-    }
-  }, [debouncedPassword, debouncedPasswordConfirmation]);
-
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const { id, value } = e.target;
-    setFormState((prevState) => ({ ...prevState, [id]: value }));
-    setErrors((prevErrors) => ({ ...prevErrors, [id]: '' }));
-  };
-
-  const handleBlur = (
-    e: FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const { id, value } = e.target;
-    const errorMessage = getErrorMessage(
-      id as SignupInputId,
-      value,
-      formState.password,
-    );
-    setErrors((prevErrors) => ({ ...prevErrors, [id]: errorMessage }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const newErrors = {
-      email: getErrorMessage('email', formState.email),
-      name: getErrorMessage('name', formState.name),
-      password: getErrorMessage('password', formState.password),
-      passwordConfirmation: getErrorMessage(
-        'passwordConfirmation',
-        formState.passwordConfirmation,
-        formState.password,
-      ),
-    };
-
-    setErrors(newErrors);
-
-    const isValid = Object.values(newErrors).every((error) => !error);
-
-    if (isValid) {
+    withValidation(validateForm, [
+      'email',
+      'name',
+      'password',
+      'passwordConfirmation',
+    ])(async () => {
       try {
         const response = await publicAxiosInstance.post('/auth/signUp', {
           email: formState.email,
@@ -114,7 +79,7 @@ const SignupPage = () => {
         });
         console.error('회원가입 실패:', error);
       }
-    }
+    });
   };
 
   return (
@@ -135,8 +100,8 @@ const SignupPage = () => {
             onBlur={handleBlur}
             placeholder="이름을 입력해 주세요"
             errorMessage={errors.name}
-          ></Input>
-
+            autoComplete="name"
+          />
           <Input
             id="email"
             label="이메일"
@@ -145,28 +110,28 @@ const SignupPage = () => {
             onBlur={handleBlur}
             placeholder="이메일을 입력해 주세요"
             errorMessage={errors.email}
-          ></Input>
-          <Input
-            className={styles['password-input']}
+            autoComplete="email"
+          />
+          <PasswordInput
             id="password"
             label="비밀번호"
+            hasLabel
             value={formState.password}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            placeholder="비밀번호를 입력해 주세요"
+            handleChange={handleChange}
+            handleBlur={handleBlur}
             errorMessage={errors.password}
-            type="password"
-          ></Input>
-          <Input
+            placeholder="비밀번호를 입력해 주세요"
+          />
+          <PasswordInput
             id="passwordConfirmation"
             label="비밀번호 확인"
+            hasLabel
             value={formState.passwordConfirmation}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            placeholder="비밀번호를 입력해 주세요"
+            handleChange={handleChange}
+            handleBlur={handleBlur}
             errorMessage={errors.passwordConfirmation}
-            type="password"
-          ></Input>
+            placeholder="비밀번호를 입력해 주세요"
+          />
         </div>
         <Button color="primary" size="large">
           가입하기

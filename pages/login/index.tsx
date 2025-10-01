@@ -1,19 +1,21 @@
-import { useState, ChangeEvent, FocusEvent, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { publicAxiosInstance } from '@/services/api/axiosInstance';
 import styles from '@/pages/login/styles.module.scss';
-import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthProvider';
-import { LoginInputId, getErrorMessage } from '@/types/authUtils';
 import Button from '@/components/common/button';
 import Input from '@/components/common/input';
-import useDebounce from '@/hooks/useDebounce/useDebounce';
+import Toast from '@/components/common/toast';
+import PasswordInput from '@/components/common/input/components/passwordInput/index';
 import {
   AuthResponseType,
   LoginFormDataType,
   loginErrorState,
 } from '@/types/auth';
-import Toast from '@/components/common/toast';
+import { usePasswordValidation } from '@/hooks/usePasswordValidation/usePasswordValidation';
+import { useForm } from '@/hooks/useForm/useForm';
+import { withValidation } from '@/utils/formUtils';
 
 const LoginPage = () => {
   const router = useRouter();
@@ -36,47 +38,27 @@ const LoginPage = () => {
 
   const { login } = useAuth();
 
-  const debouncedPassword = useDebounce(formState.password, 500);
+  // 비밀번호 유효성 검사
+  usePasswordValidation({
+    formState,
+    setErrors,
+    fields: ['password'],
+  });
 
-  useEffect(() => {
-    if (debouncedPassword) {
-      const passwordError = getErrorMessage('password', debouncedPassword);
+  const { handleChange, handleBlur, validateForm } = useForm<LoginFormDataType>(
+    {
+      formState,
+      setFormState,
+      setErrors,
+      passwordFieldKey: 'password',
+      fields: ['email', 'password'],
+    },
+  );
 
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        password: passwordError,
-      }));
-    }
-  }, [debouncedPassword]);
-
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const { id, value } = e.target;
-    setFormState((prevState) => ({ ...prevState, [id]: value }));
-    setErrors((prevErrors) => ({ ...prevErrors, [id]: '' }));
-  };
-
-  const handleBlur = (
-    e: FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const { id, value } = e.target;
-    const errorMessage = getErrorMessage(id as LoginInputId, value);
-    setErrors((prevErrors) => ({ ...prevErrors, [id]: errorMessage }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const newErrors = {
-      email: getErrorMessage('email', formState.email),
-      password: getErrorMessage('password', formState.password),
-    };
 
-    setErrors(newErrors);
-
-    const isValid = Object.values(newErrors).every((error) => !error);
-
-    if (isValid) {
+    withValidation(validateForm, ['email', 'password'])(async () => {
       try {
         const response = await publicAxiosInstance.post('/auth/signIn', {
           email: formState.email,
@@ -103,7 +85,7 @@ const LoginPage = () => {
           visible: true,
         });
       }
-    }
+    });
   };
 
   const handleCloseToast = () => {
@@ -131,17 +113,18 @@ const LoginPage = () => {
                   onBlur={handleBlur}
                   placeholder="이메일을 입력해 주세요"
                   errorMessage={errors.email}
-                ></Input>
-                <Input
+                  autoComplete="username"
+                />
+                <PasswordInput
                   id="password"
                   label="비밀번호"
+                  hasLabel
                   value={formState.password}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  placeholder="비밀번호를 입력해 주세요"
+                  handleChange={handleChange}
+                  handleBlur={handleBlur}
                   errorMessage={errors.password}
-                  type="password"
-                ></Input>
+                  placeholder="비밀번호를 입력해 주세요"
+                />
               </div>
               <Button color="primary" size="large" fullWidth>
                 로그인
