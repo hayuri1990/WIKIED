@@ -10,18 +10,33 @@ export type LoginInputId =
   | 'password'
   | 'passwordConfirmation';
 
+export type ChangePasswordInputId =
+  | 'currentPassword'
+  | 'newPassword'
+  | 'verifyNewPassword';
+
+export type InputId = LoginInputId | SignupInputId | ChangePasswordInputId;
+
 export const isValidEmail = (email: string) => {
   const emailRegex = /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
   return emailRegex.test(email);
 };
 
 export const getErrorMessage = (
-  type: 'email' | 'name' | 'password' | 'passwordConfirmation',
+  type: SignupInputId | LoginInputId | ChangePasswordInputId,
   value: string,
   password?: string,
 ): string => {
   const trimmedValue = value.trim();
-  switch (type) {
+
+  const normalizedType: 'email' | 'name' | 'password' | 'passwordConfirmation' =
+    type === 'currentPassword' || type === 'newPassword'
+      ? 'password'
+      : type === 'verifyNewPassword'
+        ? 'passwordConfirmation'
+        : type;
+
+  switch (normalizedType) {
     case 'email':
       if (!trimmedValue) return '이메일을 입력해 주세요';
       if (!isValidEmail(trimmedValue)) return '잘못된 이메일 형식입니다';
@@ -39,3 +54,18 @@ export const getErrorMessage = (
       return '';
   }
 };
+
+export interface UsePasswordValidationProps<
+  T extends Record<string, string | undefined>,
+> {
+  formState: T;
+  setErrors: React.Dispatch<
+    React.SetStateAction<Record<string, string | undefined>>
+  >;
+  fields: (keyof T)[];
+}
+export interface UseFormProps<T extends Record<string, string | undefined>>
+  extends UsePasswordValidationProps<T> {
+  setFormState: React.Dispatch<React.SetStateAction<T>>;
+  passwordFieldKey: keyof T;
+}
