@@ -15,6 +15,8 @@ export type ChangePasswordInputId =
   | 'newPassword'
   | 'verifyNewPassword';
 
+export type InputId = LoginInputId | SignupInputId | ChangePasswordInputId;
+
 export const isValidEmail = (email: string) => {
   const emailRegex = /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
   return emailRegex.test(email);
@@ -61,4 +63,9 @@ export interface UsePasswordValidationProps<
     React.SetStateAction<Record<string, string | undefined>>
   >;
   fields: (keyof T)[];
+}
+export interface UseFormProps<T extends Record<string, string | undefined>>
+  extends UsePasswordValidationProps<T> {
+  setFormState: React.Dispatch<React.SetStateAction<T>>;
+  passwordFieldKey: keyof T;
 }
