@@ -12,8 +12,8 @@ export type SignUpFormDataType = {
 
 export type ChangePasswordFormDataType = {
   currentPassword: string;
-  password: string;
-  passwordConfirmation: string;
+  newPassword: string;
+  verifyNewPassword: string;
 };
 
 export interface loginErrorState {
