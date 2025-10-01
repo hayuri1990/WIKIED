@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FocusEvent } from 'react';
+import { useState } from 'react';
 import Button from '@/components/common/button';
 import styles from '@/components/mypage/changePasswordInput/styles.module.scss';
 import {
@@ -10,8 +10,10 @@ import Toast from '@/components/common/toast';
 import PasswordInput from '@/components/common/input/components/passwordInput';
 import { ChangePasswordRequest } from '@/types/user';
 import { usePasswordValidation } from '@/hooks/usePasswordValidation/usePasswordValidation';
-import { ChangePasswordInputId, getErrorMessage } from '@/types/authUtils';
 import { useRouter } from 'next/navigation';
+import { useForm } from '@/hooks/useForm/useForm';
+import { ChangePasswordFormDataType } from '@/types/auth';
+import { withValidation } from '@/utils/formUtils';
 
 const ChangePasswordInput = ({
   onChangePassword,
@@ -36,28 +38,17 @@ const ChangePasswordInput = ({
     fields: ['currentPassword', 'newPasswordError', 'verifyNewPasswordError'],
   });
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const { id, value } = e.target;
-    setFormState((prevState) => ({ ...prevState, [id]: value }));
-    setErrors((prevErrors) => ({ ...prevErrors, [id]: '' }));
-  };
+  const { handleChange, handleBlur, validateForm } =
+    useForm<ChangePasswordFormDataType>({
+      formState,
+      setFormState,
+      setErrors,
+      passwordFieldKey: 'newPassword',
+      fields: ['currentPassword', 'newPassword', 'verifyNewPassword'],
+    });
 
-  const handleBlur = (
-    e: FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const { id, value } = e.target;
-    const errorMessage = getErrorMessage(
-      id as ChangePasswordInputId,
-      value,
-      formState.newPassword,
-    );
-    setErrors((prevErrors) => ({ ...prevErrors, [id]: errorMessage }));
-  };
-
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
 
     if (formState.currentPassword === formState.newPassword) {
       setToastMessage('현재 비밀번호와 동일합니다.');
@@ -67,38 +58,44 @@ const ChangePasswordInput = ({
       return;
     }
 
-    const requestData: ChangePasswordRequest = {
-      currentPassword: formState.currentPassword,
-      password: formState.newPassword,
-      passwordConfirmation: formState.verifyNewPassword,
-    };
+    withValidation(validateForm, [
+      'currentPassword',
+      'newPassword',
+      'verifyNewPassword',
+    ])(async () => {
+      const requestData: ChangePasswordRequest = {
+        currentPassword: formState.currentPassword,
+        password: formState.newPassword,
+        passwordConfirmation: formState.verifyNewPassword,
+      };
 
-    try {
-      const success = await onChangePassword(requestData);
+      try {
+        const success = await onChangePassword(requestData);
 
-      if (success) {
-        setToastMessage('비밀번호 변경이 완료되었습니다 😃');
-        setToastType('success');
+        if (success) {
+          setToastMessage('비밀번호 변경이 완료되었습니다 😃');
+          setToastType('success');
+          setTimeout(() => {
+            router.push('/');
+          }, 2000);
+        } else {
+          setToastMessage('비밀번호 변경에 실패했어요 🥲');
+          setToastType('error');
+        }
+        setShowToast(true);
         setTimeout(() => {
-          router.push('/');
+          setShowToast(false);
         }, 2000);
-      } else {
+      } catch (error) {
+        console.error('비밀번호 변경 중 오류 발생:', error);
         setToastMessage('비밀번호 변경에 실패했어요 🥲');
         setToastType('error');
+        setShowToast(true);
+        setTimeout(() => {
+          setShowToast(false);
+        }, 2000);
       }
-      setShowToast(true);
-      setTimeout(() => {
-        setShowToast(false);
-      }, 2000);
-    } catch (error) {
-      console.error('비밀번호 변경 중 오류 발생:', error);
-      setToastMessage('비밀번호 변경에 실패했어요 🥲');
-      setToastType('error');
-      setShowToast(true);
-      setTimeout(() => {
-        setShowToast(false);
-      }, 2000);
-    }
+    });
   };
 
   return (

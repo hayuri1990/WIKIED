@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FocusEvent } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { publicAxiosInstance } from '@/services/api/axiosInstance';
@@ -8,13 +8,14 @@ import Button from '@/components/common/button';
 import Input from '@/components/common/input';
 import Toast from '@/components/common/toast';
 import PasswordInput from '@/components/common/input/components/passwordInput/index';
-import { LoginInputId, getErrorMessage } from '@/types/authUtils';
 import {
   AuthResponseType,
   LoginFormDataType,
   loginErrorState,
 } from '@/types/auth';
 import { usePasswordValidation } from '@/hooks/usePasswordValidation/usePasswordValidation';
+import { useForm } from '@/hooks/useForm/useForm';
+import { withValidation } from '@/utils/formUtils';
 
 const LoginPage = () => {
   const router = useRouter();
@@ -44,38 +45,20 @@ const LoginPage = () => {
     fields: ['password'],
   });
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const { id, value } = e.target;
-    setFormState((prevState) => ({ ...prevState, [id]: value }));
-    setErrors((prevErrors) => ({ ...prevErrors, [id]: '' }));
-  };
+  const { handleChange, handleBlur, validateForm } = useForm<LoginFormDataType>(
+    {
+      formState,
+      setFormState,
+      setErrors,
+      passwordFieldKey: 'password',
+      fields: ['email', 'password'],
+    },
+  );
 
-  const handleBlur = (
-    e: FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const { id, value } = e.target;
-    const errorMessage = getErrorMessage(
-      id as LoginInputId,
-      value,
-      formState.password,
-    );
-    setErrors((prevErrors) => ({ ...prevErrors, [id]: errorMessage }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const newErrors = {
-      email: getErrorMessage('email', formState.email),
-      password: getErrorMessage('password', formState.password),
-    };
 
-    setErrors(newErrors);
-
-    const isValid = Object.values(newErrors).every((error) => !error);
-
-    if (isValid) {
+    withValidation(validateForm, ['email', 'password'])(async () => {
       try {
         const response = await publicAxiosInstance.post('/auth/signIn', {
           email: formState.email,
@@ -102,7 +85,7 @@ const LoginPage = () => {
           visible: true,
         });
       }
-    }
+    });
   };
 
   const handleCloseToast = () => {
