@@ -120,53 +120,71 @@ Pages Router와 Dynamic Routes를 통해 페이지 이동을 간편하게 처리
 
 ## 5. 프로젝트 구조
 ```
-📦root
-┣ 📂assets
-┃ ┣ 📂icons
-┃ ┗ 📂images
-┣ 📂components
-┃ ┣ 📂boards
-┃ ┣ 📂common
-┃ ┣ 📂mypage
-┃ ┣ 📂wiki
-┃ ┗ 📂wikilist
-┣ 📂contexts
-┃ ┗ 📜AuthProvider.tsx
-┣ 📂hooks
-┃ ┣ 📂useCode
-┃ ┗ 📂useDebounce
-┣ 📂pages
-┃ ┣ 📜_app.tsx
-┃ ┣ 📜_document.tsx
-┃ ┣ 📂addboard
-┃ ┣ 📂boards
-┃ ┣ 📜index.tsx
-┃ ┣ 📂landing
-┃ ┣ 📂login
-┃ ┣ 📂mypage
-┃ ┣ 📂signup
-┃ ┣ 📂wiki
-┃ ┗ 📂wikilist
-┣ 📂public
-┃ ┣ 📜favicon.ico
-┃ ┣ 📜next.svg
-┃ ┗ 📜vercel.svg
-┣ 📂services
-┃ ┗ 📂api
-┣ 📂styles
-┃ ┣ 📜_color.scss
-┃ ┣ 📜_common.scss
-┃ ┣ 📜_font.scss
-┃ ┣ 📜globals.scss
-┃ ┗ 📜index.scss
-┣ 📜pull_request_template.md
-┣ 📜test.http
-┣ 📜tsconfig.json
-┗ 📂types
-┣ 📜article.ts
-┣ 📜auth.ts
-┣ 📜authUtils.ts
-┗ 📜profile.ts
+📦 root
+┣ 📂 assets
+┃ ┣ 📂 icons
+┃ ┗ 📂 images
+┣ 📂 components
+┃ ┣ 📂 boards
+┃ ┣ 📂 common
+┃ ┣ 📂 mypage
+┃ ┣ 📂 wiki
+┃ ┗ 📂 wikilist
+┣ 📂 contexts
+┃ ┗ 📜 AuthProvider.tsx
+┣ 📂 hooks
+┃ ┣ 📂 useClientWidth
+┃ ┣ 📂 useCode
+┃ ┣ 📂 useDebounce
+┃ ┣ 📂 useForm
+┃ ┣ 📂 useMenu
+┃ ┣ 📂 useModal
+┃ ┣ 📂 useOutsideClick
+┃ ┗ 📂 usePasswordValidation
+┣ 📂 pages
+┃ ┣ 📂 addboard
+┃ ┣ 📂 boards
+┃ ┣ 📂 landing
+┃ ┣ 📂 login
+┃ ┣ 📂 mypage
+┃ ┣ 📂 signup
+┃ ┣ 📂 wiki
+┃ ┣ 📂 wikilist
+┃ ┣ 📜 _app.tsx
+┃ ┣ 📜 _document.tsx
+┃ ┗ 📜 index.tsx
+┣ 📂 public
+┃ ┣ 📜 favicon.ico
+┃ ┣ 📜 next.svg
+┃ ┗ 📜 vercel.svg
+┣ 📂 services
+┃ ┗ 📂 api
+┃   ┣ 📜article.ts
+┃   ┣ 📜axiosInstance.ts
+┃   ┣ 📜comment.ts
+┃   ┣ 📜notifications.ts
+┃   ┣ 📜profile.ts
+┃   ┗ 📜user.ts
+┣ 📂 styles
+┃ ┣ 📜 _color.scss
+┃ ┣ 📜 _common.scss
+┃ ┣ 📜 _font.scss
+┃ ┣ 📜 globals.scss
+┃ ┗ 📜 index.scss
+┣ 📂 types
+┃ ┣ 📜 article.ts
+┃ ┣ 📜 auth.ts
+┃ ┣ 📜 authUtils.ts
+┃ ┣ 📜 notification.ts
+┃ ┣ 📜 profile.ts
+┃ ┣ 📜 user.ts
+┃ ┗ 📜 wiki.ts
+┣ 📂 utils
+┃ ┣ 📜 dateFormat.ts
+┃ ┗ 📜 formUtils.ts
+┣ 📜 next.config.mjs
+┣ 📜 package.json
+┗ 📜 tsconfig.json
 ```
 
 <br/>
